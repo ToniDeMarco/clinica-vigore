@@ -1,617 +1,737 @@
-<!DOCTYPE html>
-<html lang="pt-BR">
+<!doctype html>
+<html lang="pt-BR" class="no-js">
 <head>
-  <meta charset="UTF-8">
-  <meta name="viewport" content="width=device-width, initial-scale=1">
+  <meta charset="utf-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1, viewport-fit=cover">
+
+  <!-- ===== SEO ===== -->
   <title>Vigore – Corpo e Mente | Clínica multidisciplinar em Montalvânia, MG</title>
   <meta name="description" content="Psicologia, Psiquiatria, Nutrição, Pediatria, Dermatologia e mais em um só lugar. Clínica Vigore – Corpo e Mente, em Montalvânia (MG). Teleconsulta para Psicologia. Agende pelo WhatsApp.">
-  <meta name="theme-color" content="#F6F1EA">
+  <meta name="theme-color" content="#105666">
   <meta property="og:title" content="Vigore – Corpo e Mente">
   <meta property="og:description" content="9 especialidades em um só lugar, com atendimento humanizado. Agende pelo WhatsApp.">
   <meta property="og:type" content="website">
   <meta property="og:locale" content="pt_BR">
   <link rel="icon" type="image/png" href="Assets/img/logo-96.png">
 
-  <!-- Fontes self-hosted (sem dependências externas) -->
-  <link rel="preload" href="Assets/fonts/bodoni-moda-400-normal.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="Assets/fonts/jost-variable.woff2" as="font" type="font/woff2" crossorigin>
-  <link rel="preload" href="Assets/img/hero-paciente.webp" as="image" fetchpriority="high" media="(min-width: 768px)">
+  <!-- Fontes locais (sem dependências externas) -->
+  <link rel="preload" href="Assets/fonts/work-sans-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="Assets/fonts/instrument-serif-regular.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="Assets/fonts/montserrat-variable.woff2" as="font" type="font/woff2" crossorigin>
+  <link rel="preload" href="Assets/img/logo-arvore-320.webp" as="image" type="image/webp" fetchpriority="high">
 
-  <script>document.documentElement.classList.add('js','is-loading');</script>
+  <script>
+    document.documentElement.className = 'js is-loading';
+    // Segurança: se o main.js não carregar, libera a página
+    setTimeout(function () { if (!window.__vgReady) document.documentElement.className = 'no-js'; }, 10000);
+  </script>
 
-  <!-- ===== CSS CRÍTICO (acima da dobra: tokens, preloader, header, hero) ===== -->
+  <!-- ===== CSS crítico (preloader + base). Mantenha os tokens em sincronia com css/style.css ===== -->
   <style>
-                @font-face { font-family: "Bodoni Moda"; src: url("Assets/fonts/bodoni-moda-400-normal.woff2") format("woff2"); font-weight: 400; font-style: normal; font-display: swap; }
-    @font-face { font-family: "Bodoni Moda"; src: url("Assets/fonts/bodoni-moda-400-italic.woff2") format("woff2"); font-weight: 400; font-style: italic; font-display: swap; }
-    @font-face { font-family: "Bodoni Moda"; src: url("Assets/fonts/bodoni-moda-500-normal.woff2") format("woff2"); font-weight: 500; font-style: normal; font-display: swap; }
-    @font-face{font-family:"Jost";src:url(Assets/fonts/jost-variable.woff2) format("woff2-variations");font-weight:300 700;font-style:normal;font-display:swap}
-    :root{--cream-50:#FBF8F3;--cream-100:#F6F1EA;--cream-200:#ECE4D8;--gold-300:#DDB86E;--gold-500:#B8893F;--gold-700:#7E5A22;--sage-600:#566E51;--sage-700:#465B42;--ink:#2B2620;--ink-soft:#5E554B;--font-serif:"Bodoni Moda",Georgia,"Times New Roman",serif;--font-sans:"Jost",system-ui,-apple-system,"Segoe UI",Roboto,sans-serif;--header-h:76px;--ease-out:cubic-bezier(.22,1,.36,1)}
+    @font-face{font-family:"Work Sans";src:url(Assets/fonts/work-sans-variable.woff2) format("woff2");font-weight:300 600;font-display:swap}
+    @font-face{font-family:"Instrument Serif";src:url(Assets/fonts/instrument-serif-regular.woff2) format("woff2");font-weight:400;font-display:swap}
+    @font-face{font-family:"Montserrat";src:url(Assets/fonts/montserrat-variable.woff2) format("woff2");font-weight:100 900;font-display:swap}
+    :root{--bege:#F7F4D5;--petroleo:#105666;--musgo:#839958;--ink:#10323A;--ouro:#A9762A;--ouro-claro:#D4AE5E;--ouro-escuro:#8A5E1F;--logo-fundo:#E9E4DE}
     *,*::before,*::after{box-sizing:border-box}
     html{-webkit-text-size-adjust:100%}
-    body{margin:0;font-family:var(--font-sans);font-size:1rem;line-height:1.65;color:var(--ink-soft);background:var(--cream-50)}
-    img{max-width:100%;height:auto;display:block}
-    a{color:inherit}
-    .js.is-loading body{overflow:hidden}
+    body{margin:0;background:var(--bege);color:var(--ink);font-family:"Work Sans",system-ui,sans-serif}
     .preloader{display:none}
-    .js .preloader{position:fixed;inset:0;z-index:1000;display:grid;place-items:center;background:var(--cream-100);transition:opacity .9s var(--ease-out),visibility .9s}
-    .preloader.is-done{opacity:0;visibility:hidden}
-    .preloader__inner{display:flex;flex-direction:column;align-items:center;gap:1.25rem}
-    .preloader__logo{width:min(46vw,190px);height:auto;overflow:visible}
-    .preloader__logo .draw{fill:none;stroke:var(--gold-500);stroke-width:1.6;stroke-linecap:round;stroke-linejoin:round;stroke-dasharray:1;stroke-dashoffset:1}
-    .preloader__logo .fill{fill:url(#vg-gold);fill-opacity:0;transition:fill-opacity 1s ease}
-    .preloader.is-filled .fill{fill-opacity:1}
-    .preloader__count{font-family:var(--font-sans);font-weight:700;font-size:clamp(1.75rem,1.2rem + 2vw,2.5rem);letter-spacing:.02em;color:var(--ink);font-variant-numeric:tabular-nums;line-height:1}
-    .preloader__brand{font-family:var(--font-serif);font-size:1.05rem;letter-spacing:.32em;text-transform:uppercase;color:var(--gold-700);margin:0}
-    .preloader__bar{position:absolute;left:0;right:0;bottom:0;height:2px;background:rgba(184,137,63,.15)}
-    .preloader__bar span{display:block;height:100%;width:100%;transform-origin:left;transform:scaleX(0);background:linear-gradient(90deg,var(--gold-300),var(--gold-500))}
-    .site-header{position:fixed;inset:0 0 auto;z-index:100;height:var(--header-h)}
-    .hero{display:flex;flex-direction:column;min-height:100vh;min-height:100svh;padding-top:calc(var(--header-h) + clamp(.5rem,1.8svh,1.25rem));background:var(--cream-100)}
-    .hero__grid{flex:1}
-    .hero__title{font-family:var(--font-serif);font-weight:400;color:var(--ink);font-size:min(clamp(2.6rem,.8rem + 4.6vw,5rem),6.2svh,8.8vw);line-height:1.04;letter-spacing:-.025em;margin:0}
+    .js .preloader{position:fixed;inset:0;z-index:9999;display:grid;place-items:center;background:var(--bege);transition:opacity .8s cubic-bezier(.65,0,.35,1),visibility 0s .8s}
+    .js .preloader.is-done{opacity:0;visibility:hidden}
+    .is-loading body{overflow:hidden}
+    .preloader__inner{display:grid;justify-items:center;gap:22px}
+    .preloader__logo{position:relative;display:grid;place-items:center;width:168px;height:168px;border-radius:50%;background:var(--logo-fundo);box-shadow:0 22px 44px -22px rgba(138,94,31,.45)}
+    .preloader__ring{position:absolute;inset:0;width:100%;height:100%;overflow:visible}
+    .preloader__ring circle{fill:none;stroke:var(--ouro);stroke-width:1.5;stroke-linecap:round;stroke-dasharray:1;stroke-dashoffset:1}
+    /* A árvore "cresce" de baixo para cima conforme --p (0 a 1) avança */
+    .preloader__tree{--edge:calc(var(--p,0) * 130%);width:76%;height:auto;-webkit-mask-image:linear-gradient(to top,#000 calc(var(--edge) - 30%),transparent var(--edge));mask-image:linear-gradient(to top,#000 calc(var(--edge) - 30%),transparent var(--edge))}
+    .preloader__percent{font-weight:600;font-size:1.75rem;letter-spacing:.02em;color:var(--ouro-escuro);font-variant-numeric:tabular-nums;min-width:4ch;text-align:center}
+    /* Assinatura no mesmo desenho do logotipo: CLÍNICA / VIGORE / CORPO E MENTE */
+    .preloader__name{display:grid;justify-items:center;gap:6px;font-family:"Montserrat",system-ui,sans-serif;font-weight:200;font-size:2.5rem;line-height:1;letter-spacing:.1em;text-indent:.1em;text-transform:uppercase;color:#6F6257}
+    .preloader__name small{font-size:.5625rem;font-weight:400;letter-spacing:.3em;text-indent:.3em}
+    .preloader__name small:first-child{justify-self:start;text-indent:0}
+    .preloader__track{position:absolute;left:0;right:0;bottom:0;height:3px;background:rgba(169,118,42,.15)}
+    .preloader__bar{display:block;height:100%;background:linear-gradient(90deg,var(--ouro-claro),var(--ouro));transform:scaleX(0);transform-origin:left}
   </style>
 
   <link rel="preload" href="css/style.css" as="style" onload="this.onload=null;this.rel='stylesheet'">
   <noscript><link rel="stylesheet" href="css/style.css"></noscript>
+
+  <script src="js/main.js" defer></script>
 </head>
 
 <body>
-  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
-
-  <!-- ===================== ÍCONES (sprite SVG) ===================== -->
-  <svg width="0" height="0" class="visually-hidden" aria-hidden="true" focusable="false">
-    <symbol id="i-whatsapp" viewBox="0 0 24 24"><path fill="currentColor" d="M12.04 2C6.58 2 2.13 6.45 2.13 11.91c0 1.75.46 3.45 1.32 4.95L2.05 22l5.25-1.38a9.9 9.9 0 0 0 4.74 1.21h.01c5.46 0 9.9-4.45 9.9-9.91A9.86 9.86 0 0 0 12.04 2Zm0 18.15h-.01a8.2 8.2 0 0 1-4.19-1.15l-.3-.18-3.12.82.83-3.04-.2-.31a8.2 8.2 0 0 1-1.26-4.38c0-4.54 3.7-8.24 8.25-8.24a8.2 8.2 0 0 1 8.24 8.25c0 4.54-3.7 8.23-8.24 8.23Zm4.52-6.16c-.25-.12-1.47-.72-1.69-.81-.23-.08-.39-.12-.56.13-.17.24-.64.8-.78.97-.15.16-.29.18-.54.06a6.7 6.7 0 0 1-1.99-1.23 7.5 7.5 0 0 1-1.38-1.72c-.14-.25 0-.38.11-.5.11-.11.25-.29.37-.43.13-.15.17-.25.25-.42.08-.16.04-.31-.02-.43-.06-.12-.56-1.34-.76-1.84-.2-.48-.41-.42-.56-.42h-.48a.92.92 0 0 0-.66.31c-.23.25-.87.85-.87 2.07s.89 2.4 1.01 2.56c.12.17 1.75 2.67 4.24 3.74.59.26 1.05.41 1.41.52.6.19 1.14.16 1.56.1.48-.07 1.47-.6 1.68-1.18.21-.58.21-1.07.14-1.18-.06-.1-.22-.16-.47-.28Z"/></symbol>
-    <symbol id="i-instagram" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.7"><rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4.2"/><circle cx="17.4" cy="6.6" r=".6" fill="currentColor"/></g></symbol>
-    <symbol id="i-pin" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.6"/></g></symbol>
-    <symbol id="i-mail" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m4 7 8 6 8-6"/></g></symbol>
-    <symbol id="i-arrow" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M5 12h14m-5-5 5 5-5 5"/></symbol>
-    <symbol id="i-leaf" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M5 19c0-8 5-13 14-14 0 9-5 14-13 14"/><path d="M5 19 14 10"/></g></symbol>
-    <symbol id="i-people" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="9" cy="8" r="3"/><circle cx="17" cy="9.5" r="2.3"/><path d="M3.5 19c.6-3.2 2.8-5 5.5-5s4.9 1.8 5.5 5M15 14.3c2.4-.4 4.6 1 5.2 4"/></g></symbol>
-    <symbol id="i-heart" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linejoin="round" d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.2a4.3 4.3 0 0 1 7.5 2.6C19.5 15.4 12 20 12 20Z"/></symbol>
-    <symbol id="i-video" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="3" y="6" width="13" height="12" rx="2.5"/><path d="m16 10.5 5-3v9l-5-3"/></g></symbol>
-    <symbol id="i-check" viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round" d="m5 12.5 4.2 4L19 7"/></symbol>
-    <symbol id="i-lock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/></g></symbol>
-    <symbol id="i-clock" viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></g></symbol>
+  <!-- ===== Sprite de ícones ===== -->
+  <svg width="0" height="0" style="position:absolute" aria-hidden="true" focusable="false">
+    <symbol id="blob-a" viewBox="0 0 400 400">
+      <path d="M318 74c48 40 72 108 52 170s-82 112-152 118-138-26-162-86S38 132 84 86 270 34 318 74Z"/>
+    </symbol>
+    <symbol id="blob-b" viewBox="0 0 400 400">
+      <path d="M300 52c56 30 86 98 70 162-16 64-70 120-140 132S86 330 46 274 6 140 60 84s184-62 240-32Z"/>
+    </symbol>
+    <symbol id="blob-c" viewBox="0 0 400 400">
+      <path d="M276 64c52 26 98 84 90 146s-60 110-124 128-128-6-170-56S20 162 62 108 224 38 276 64Z"/>
+    </symbol>
+    <symbol id="i-whatsapp" viewBox="0 0 24 24">
+      <path fill="currentColor" d="M17.47 14.38c-.3-.15-1.76-.87-2.03-.97-.27-.1-.47-.15-.67.15-.2.3-.77.97-.94 1.16-.17.2-.35.22-.64.08-.3-.15-1.26-.47-2.39-1.48-.88-.79-1.48-1.76-1.65-2.06-.17-.3-.02-.46.13-.6.13-.14.3-.35.45-.52.15-.18.2-.3.3-.5.1-.2.05-.37-.03-.52-.07-.15-.67-1.61-.92-2.2-.24-.59-.49-.5-.67-.51h-.57c-.2 0-.52.07-.79.37-.27.3-1.04 1.02-1.04 2.48s1.07 2.88 1.21 3.07c.15.2 2.1 3.2 5.08 4.49.71.31 1.26.49 1.7.63.71.22 1.36.19 1.87.12.57-.09 1.76-.72 2-1.41.25-.7.25-1.29.18-1.42-.08-.12-.28-.2-.57-.34m-5.42 7.4h-.01a9.87 9.87 0 0 1-5.03-1.38l-.36-.21-3.74.98 1-3.65-.24-.37a9.86 9.86 0 0 1-1.51-5.26c0-5.45 4.44-9.88 9.89-9.88 2.64 0 5.12 1.03 6.99 2.9a9.83 9.83 0 0 1 2.89 6.99c0 5.45-4.44 9.88-9.88 9.88m8.41-18.3A11.82 11.82 0 0 0 12.05 0C5.5 0 .16 5.34.16 11.89c0 2.1.55 4.14 1.59 5.95L.06 24l6.3-1.65a11.88 11.88 0 0 0 5.68 1.45h.01c6.55 0 11.89-5.34 11.89-11.89a11.82 11.82 0 0 0-3.48-8.41Z"/>
+    </symbol>
+    <symbol id="i-instagram" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="3" width="18" height="18" rx="5"/><circle cx="12" cy="12" r="4"/><circle cx="17.3" cy="6.7" r=".6" fill="currentColor"/>
+      </g>
+    </symbol>
+    <symbol id="i-mail" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3" y="5" width="18" height="14" rx="2.5"/><path d="m3.5 7 8.5 6 8.5-6"/>
+      </g>
+    </symbol>
+    <symbol id="i-pin" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21s-7-6.2-7-11.5a7 7 0 0 1 14 0C19 14.8 12 21 12 21Z"/><circle cx="12" cy="9.5" r="2.6"/>
+      </g>
+    </symbol>
+    <symbol id="i-arrow" viewBox="0 0 24 24">
+      <path d="M5 12h14M13 6l6 6-6 6" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-check" viewBox="0 0 24 24">
+      <path d="m6 12.5 4 4L18 8" fill="none" stroke="currentColor" stroke-width="2" stroke-linecap="round" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-plus" viewBox="0 0 24 24">
+      <path d="M12 5v14M5 12h14" fill="none" stroke="currentColor" stroke-width="1.8" stroke-linecap="round"/>
+    </symbol>
+    <symbol id="i-video" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="2.5" y="6" width="13" height="12" rx="2.5"/><path d="m15.5 10.5 6-3.5v10l-6-3.5"/>
+      </g>
+    </symbol>
+    <symbol id="i-users" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <circle cx="9" cy="8" r="3.5"/><path d="M2.5 20c.8-3.6 3.4-5.5 6.5-5.5s5.7 1.9 6.5 5.5"/><path d="M16 4.6a3.5 3.5 0 0 1 0 6.8M18 14.8c1.9.6 3.1 2.3 3.5 5.2"/>
+      </g>
+    </symbol>
+    <symbol id="i-sprout" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <path d="M12 21v-9"/><path d="M12 12C12 7 8.5 4.5 4 4.5c0 4.8 3.2 7.5 8 7.5Z"/><path d="M12 14.5c0-4 3-6.5 8-6.5 0 4-3 6.5-8 6.5Z"/>
+      </g>
+    </symbol>
+    <symbol id="i-chat" viewBox="0 0 24 24">
+      <path d="M20.5 11.5a8.3 8.3 0 0 1-8.8 8.3 8.9 8.9 0 0 1-3.8-.9L3.5 20l1.1-4a8.3 8.3 0 1 1 15.9-4.5Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-calendar" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="3.5" y="5" width="17" height="15.5" rx="2.5"/><path d="M3.5 10h17M8 3v4M16 3v4"/>
+      </g>
+    </symbol>
+    <symbol id="i-heart" viewBox="0 0 24 24">
+      <path d="M12 20s-7.5-4.6-7.5-10.2A4.3 4.3 0 0 1 12 7.4a4.3 4.3 0 0 1 7.5 2.4C19.5 15.4 12 20 12 20Z" fill="none" stroke="currentColor" stroke-width="1.7" stroke-linejoin="round"/>
+    </symbol>
+    <symbol id="i-lock" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round" stroke-linejoin="round">
+        <rect x="5" y="10.5" width="14" height="10" rx="2.5"/><path d="M8.5 10.5V8a3.5 3.5 0 0 1 7 0v2.5"/>
+      </g>
+    </symbol>
+    <symbol id="i-clock" viewBox="0 0 24 24">
+      <g fill="none" stroke="currentColor" stroke-width="1.7" stroke-linecap="round"><circle cx="12" cy="12" r="8.5"/><path d="M12 7.5V12l3 2"/></g>
+    </symbol>
   </svg>
 
-  <!-- ===================== PRELOADER ===================== -->
+  <!-- ===== Preloader ===== -->
   <div class="preloader" id="preloader" role="status" aria-live="polite" aria-label="Carregando a página">
     <div class="preloader__inner">
-      <svg class="preloader__logo" viewBox="0 0 240 240" aria-hidden="true" focusable="false">
-        <defs>
-          <linearGradient id="vg-gold" x1="0" y1="0" x2="1" y2="1">
-            <stop offset="0" stop-color="#E6C177"/>
-            <stop offset=".55" stop-color="#B8893F"/>
-            <stop offset="1" stop-color="#8C6328"/>
-          </linearGradient>
-          <path id="vg-leaf" pathLength="1" d="M0 0C3-5 10-6.2 15 0 10 6.2 3 5 0 0Z"/>
-        </defs>
-        <circle class="draw" pathLength="1" cx="120" cy="120" r="112" style="stroke-width:1.1;stroke:#CDBA9A"/>
-        <!-- tronco e raízes -->
-        <path class="draw" pathLength="1" style="stroke-width:3.2" d="M118 196C140 186 150 164 144 144 139 126 124 118 118 100 113 86 116 74 122 62"/>
-        <path class="draw" pathLength="1" style="stroke-width:2.4" d="M118 196C104 200 90 196 86 186 83 178 90 172 96 176"/>
-        <path class="draw" pathLength="1" d="M82 199C100 205 130 205 152 194"/>
-        <path class="draw" pathLength="1" d="M128 192C134 198 142 200 150 200"/>
-        <!-- galhos -->
-        <path class="draw" pathLength="1" style="stroke-width:2.2" d="M141 135C153 127 162 117 168 103"/>
-        <path class="draw" pathLength="1" style="stroke-width:2.2" d="M131 121C116 111 100 107 84 104"/>
-        <path class="draw" pathLength="1" d="M101 107C93 99 86 91 76 86"/>
-        <path class="draw" pathLength="1" style="stroke-width:2" d="M120 96C105 85 97 75 92 60"/>
-        <path class="draw" pathLength="1" d="M122 62C128 54 134 50 143 47"/>
-        <path class="draw" pathLength="1" d="M119 79C131 75 142 67 150 56"/>
-        <path class="draw" pathLength="1" d="M99 77C90 74 82 71 70 70"/>
-        <path class="draw" pathLength="1" d="M153 125C160 121 166 118 174 118"/>
-        <!-- folhas -->
-        <g class="leaves">
-          <use class="draw fill" href="#vg-leaf" transform="translate(168 103) rotate(-62)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(174 118) rotate(-8)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(160 114) rotate(-35) scale(.8)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(84 104) rotate(185)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(76 86) rotate(205)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(70 70) rotate(195) scale(.9)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(92 60) rotate(-112)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(143 47) rotate(-28)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(150 56) rotate(-52)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(122 62) rotate(-92)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(108 108) rotate(150) scale(.8)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(96 94) rotate(232) scale(.8)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(86 74) rotate(150) scale(.75)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(132 55) rotate(-130) scale(.75)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(140 72) rotate(-10) scale(.75)"/>
-          <use class="draw fill" href="#vg-leaf" transform="translate(105 72) rotate(-150) scale(.75)"/>
-        </g>
-        <!-- sementes / pontos -->
-        <circle class="draw fill" pathLength="1" cx="78" cy="181" r="2"/>
-        <circle class="draw fill" pathLength="1" cx="72" cy="190" r="1.6"/>
-        <circle class="draw fill" pathLength="1" cx="106" cy="188" r="1.8"/>
-        <circle class="draw fill" pathLength="1" cx="114" cy="182" r="1.4"/>
-      </svg>
-      <p class="preloader__brand">Vigore</p>
-      <span class="preloader__count" id="preloaderCount" aria-hidden="true">0%</span>
+      <div class="preloader__logo" aria-hidden="true">
+        <svg class="preloader__ring" viewBox="0 0 200 200" focusable="false">
+          <circle data-draw="0,0.7" pathLength="1" cx="100" cy="100" r="99.25" transform="rotate(-90 100 100)"/>
+        </svg>
+        <img class="preloader__tree" src="Assets/img/logo-arvore-320.webp" alt="" width="320" height="320" decoding="async" fetchpriority="high">
+      </div>
+      <span class="preloader__percent" data-percent>0%</span>
+      <span class="preloader__name"><small>Clínica</small>Vigore<small>Corpo e Mente</small></span>
     </div>
-    <div class="preloader__bar" aria-hidden="true"><span id="preloaderBar"></span></div>
+    <div class="preloader__track" aria-hidden="true"><span class="preloader__bar" data-bar></span></div>
   </div>
 
-  <!-- ===================== CURSOR CUSTOMIZADO ===================== -->
-  <div class="cursor" aria-hidden="true"><span class="cursor__dot"></span><span class="cursor__ring"></span></div>
+  <!-- ===== Cursor customizado (apenas mouse) ===== -->
+  <div class="cursor" aria-hidden="true">
+    <span class="cursor__ring"></span>
+    <span class="cursor__dot"></span>
+  </div>
 
-  <!-- ===================== 1. HEADER / NAV ===================== -->
-  <header class="site-header" id="topo">
-    <div class="container site-header__inner">
+  <a class="skip-link" href="#conteudo">Pular para o conteúdo</a>
+
+  <!-- ===================== HEADER ===================== -->
+  <header class="header" id="topo">
+    <div class="container header__inner">
       <a class="brand" href="#inicio" aria-label="Vigore – Corpo e Mente, voltar ao início">
-        <img src="Assets/img/logo-96.png" alt="" width="96" height="96" class="brand__logo">
+        <img class="brand__mark" src="Assets/img/logo-96.png" alt="" width="96" height="96">
         <span class="brand__text">
           <span class="brand__name">Vigore</span>
-          <span class="brand__tag">Corpo e Mente</span>
+          <span class="brand__meta">Corpo e Mente</span>
         </span>
       </a>
 
-      <nav class="nav" id="menu" aria-label="Navegação principal">
-        <ul class="nav__list">
-          <li><a class="nav__link" href="#sobre">Sobre</a></li>
-          <li><a class="nav__link" href="#especialidades">Especialidades</a></li>
-          <li><a class="nav__link" href="#teleconsulta">Teleconsulta</a></li>
-          <li><a class="nav__link" href="#como-funciona">Como funciona</a></li>
-          <li><a class="nav__link" href="#duvidas">Dúvidas</a></li>
-        </ul>
-        <div class="nav__mobile-extra">
-          <a class="btn btn--primary btn--block" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener" aria-label="Agendar consulta pelo WhatsApp (abre em nova aba)">
-            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Agendar pelo WhatsApp
+      <nav class="nav" aria-label="Navegação principal">
+        <button class="nav-toggle" type="button" aria-controls="menu" aria-expanded="false" aria-label="Abrir menu">
+          <span class="nav-toggle__line"></span>
+          <span class="nav-toggle__line"></span>
+        </button>
+
+        <div class="menu" id="menu">
+          <ul class="menu__list">
+            <li style="--i:0"><a class="menu__link" href="#sobre"><span class="menu__index">01</span>Sobre</a></li>
+            <li style="--i:1"><a class="menu__link" href="#especialidades"><span class="menu__index">02</span>Especialidades</a></li>
+            <li style="--i:2"><a class="menu__link" href="#teleconsulta"><span class="menu__index">03</span>Teleconsulta</a></li>
+            <li style="--i:3"><a class="menu__link" href="#como-funciona"><span class="menu__index">04</span>Como funciona</a></li>
+            <li style="--i:4"><a class="menu__link" href="#duvidas"><span class="menu__index">05</span>Dúvidas</a></li>
+          </ul>
+          <a class="btn btn--primary menu__cta" style="--i:5"
+             href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta."
+             target="_blank" rel="noopener" data-cta="header"
+             aria-label="Agendar consulta pelo WhatsApp (abre em nova aba)">
+            <svg class="btn__icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+            Agendar
           </a>
-          <a class="nav__social" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Instagram da Vigore (abre em nova aba)">
-            <svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg> @clinicavigore_
-          </a>
+          <div class="menu__extra" style="--i:6">
+            <a href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" data-cta="menu-instagram">
+              <svg aria-hidden="true"><use href="#i-instagram"/></svg>@clinicavigore_
+            </a>
+            <a href="https://maps.app.goo.gl/VJLw5xDFwneYc9Fa9" target="_blank" rel="noopener">
+              <svg aria-hidden="true"><use href="#i-pin"/></svg>Av. Confúcio, 988 – B · Montalvânia, MG
+            </a>
+          </div>
         </div>
       </nav>
-
-      <a class="btn btn--primary btn--sm site-header__cta" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener" aria-label="Agendar consulta pelo WhatsApp (abre em nova aba)">Agendar consulta</a>
-
-      <button class="hamburger" type="button" aria-label="Abrir menu" aria-expanded="false" aria-controls="menu">
-        <span class="hamburger__line"></span>
-        <span class="hamburger__line"></span>
-        <span class="hamburger__line"></span>
-      </button>
     </div>
   </header>
 
   <main id="conteudo">
 
-    <!-- ===================== 2. HERO ===================== -->
+    <!-- ===================== HERO ===================== -->
     <section class="hero" id="inicio" aria-labelledby="hero-title">
-      <div class="container hero__grid">
-        <div class="hero__content">
-          <p class="eyebrow" data-reveal>Psicologia <span aria-hidden="true">•</span> Saúde <span aria-hidden="true">•</span> Bem-estar</p>
-          <h1 class="hero__title" id="hero-title" data-reveal style="--delay:.08s">
-            Corpo e mente pedindo cuidado?
-            <em>A Vigore pode te&nbsp;ajudar.</em>
-          </h1>
-          <p class="hero__lead" data-reveal style="--delay:.16s">
-            Ansiedade, cansaço, dores, a saúde dos filhos ou aquele check-up que vive ficando para depois.
-            Na Vigore você encontra <strong>9 especialidades em um só lugar</strong>, com atendimento
-            humanizado em Montalvânia e região, e <strong>teleconsulta para Psicologia</strong>.
-          </p>
-          <div class="hero__actions" data-reveal style="--delay:.24s">
-            <a class="btn btn--primary btn--lg" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener" aria-label="Fale comigo pelo WhatsApp (abre em nova aba)">
-              <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-              Fale comigo
+      <svg class="hero__blob" aria-hidden="true" focusable="false"><use href="#blob-a"/></svg>
+      <div class="container">
+        <div class="hero__card" data-dark>
+          <div class="hero__content">
+            <p class="eyebrow eyebrow--dark" data-reveal>
+              <span class="eyebrow__dot" aria-hidden="true"></span>
+              Saúde integral · Montalvânia, MG
+            </p>
+
+            <h1 class="hero__title" id="hero-title" data-reveal style="--delay:80ms">
+              Corpo e mente pedindo cuidado? <em>A Vigore pode te&nbsp;ajudar.</em>
+            </h1>
+
+            <p class="hero__text" data-reveal style="--delay:160ms">
+              Ansi&shy;e&shy;dade, can&shy;saço, dores, a saúde dos filhos ou aquele check-up que vive fi&shy;can&shy;do para depois.
+              Na Vigore você en&shy;con&shy;tra <strong>9&nbsp;espe&shy;ci&shy;a&shy;li&shy;da&shy;des em um só lugar</strong>, com aten&shy;di&shy;men&shy;to huma&shy;ni&shy;za&shy;do
+              em Mon&shy;tal&shy;vâ&shy;nia e região, e <strong>tele&shy;con&shy;sul&shy;ta para Psi&shy;co&shy;lo&shy;gia</strong>.
+            </p>
+
+            <div class="hero__actions" data-reveal style="--delay:240ms">
+              <a class="btn btn--primary btn--lg"
+                 href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta."
+                 target="_blank" rel="noopener" data-cta="hero"
+                 aria-label="Agendar consulta pelo WhatsApp (abre em nova aba)">
+                <svg class="btn__icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+                Agendar consulta
+                <svg class="btn__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+              </a>
+              <a class="btn btn--ghost-dark btn--lg" href="#especialidades">
+                Ver especialidades
+              </a>
+            </div>
+
+            <!-- Só no celular: o selo da foto vira um aviso abaixo dos botões -->
+            <div class="hero__notice" data-reveal style="--delay:300ms">
+              <span><strong>Varias especialidades</strong><small>em um só endereço</small></span>
+            </div>
+
+            <ul class="hero__trust" data-reveal style="--delay:320ms" aria-label="Diferenciais">
+              <li><svg aria-hidden="true"><use href="#i-heart"/></svg><span><strong>Atendimento humanizado</strong> do primeiro “olá” ao retorno</span></li>
+              <li><svg aria-hidden="true"><use href="#i-chat"/></svg><span><strong>Resposta rápida</strong> pelo WhatsApp</span></li>
+              <li><svg aria-hidden="true"><use href="#i-lock"/></svg><span><strong>Sigilo</strong> em cada consulta</span></li>
+            </ul>
+          </div>
+
+          <div class="hero__media" data-reveal="scale" style="--delay:200ms">
+            <div class="hero__frame">
+              <img class="hero__photo" src="Assets/img/hero-paciente.webp"
+                   alt="Mulher sorrindo, tranquila e acolhida"
+                   width="1391" height="1513" fetchpriority="high" decoding="async">
+
+              <svg class="hero__seal" viewBox="0 0 200 200" aria-hidden="true" focusable="false">
+                <defs><path id="seal-path" d="M100 100m-74 0a74 74 0 1 1 148 0a74 74 0 1 1-148 0"/></defs>
+                <circle cx="100" cy="100" r="98" class="hero__seal-bg"/>
+                <text class="hero__seal-text"><textPath href="#seal-path" textLength="452" lengthAdjust="spacing">corpo e mente · vigore · cuidado ·</textPath></text>
+                <image href="Assets/img/logo-192.png" x="64" y="64" width="72" height="72"/>
+              </svg>
+
+              <div class="hero__badge">
+                <span class="hero__badge-icon" aria-hidden="true"><svg><use href="#i-pin"/></svg></span>
+                <span><strong> Varias especialidades</strong><small>em um só endereço</small></span>
+              </div>
+            </div>
+          </div>
+        </div>
+      </div>
+    </section>
+
+    <!-- ===================== SOBRE + POR QUE A VIGORE ===================== -->
+    <section class="section" id="sobre" aria-labelledby="sobre-title">
+      <svg class="deco deco--sobre-1" aria-hidden="true" focusable="false"><use href="#blob-b"/></svg>
+      <svg class="deco deco--sobre-2" aria-hidden="true" focusable="false"><use href="#blob-c"/></svg>
+      <div class="container">
+        <div class="split">
+          <div class="split__media" data-reveal="scale">
+            <img class="split__photo" src="Assets/img/sobre-profissional.webp"
+                 alt="Profissional da saúde sorridente"
+                 width="1250" height="1553" loading="lazy" decoding="async">
+            <div class="split__tag">
+              <img src="Assets/img/logo-96.png" alt="" width="40" height="40" loading="lazy">
+              <span><strong>Vigore</strong><small>Corpo e Mente</small></span>
+            </div>
+          </div>
+
+          <div class="split__content">
+            <p class="eyebrow" data-reveal><span class="eyebrow__dot" aria-hidden="true"></span>Mais que uma clínica</p>
+            <h2 class="section-title" id="sobre-title" data-reveal style="--delay:80ms">Um espaço que cuida de você <em>por inteiro.</em></h2>
+            <p class="split__lead" data-reveal style="--delay:140ms">Do corpo à mente, para toda a família.</p>
+
+            <div class="split__text" data-reveal style="--delay:200ms">
+              <p>Saúde não se divide em partes. Por isso, a Vigore reúne profissionais de diferentes áreas sob o mesmo teto, para que você seja ouvido com calma, acompanhado de perto e tratado com a atenção que merece.</p>
+              <p>Da primeira consulta pediátrica ao acompanhamento psicológico, da nutrição à saúde da mulher: aqui cada fase da vida tem um profissional preparado para acolher. Você não precisa procurar em vários lugares; a gente organiza o caminho com você.</p>
+            </div>
+
+            <ul class="checklist" data-reveal>
+              <li><span class="checklist__icon" aria-hidden="true"><svg><use href="#i-check"/></svg></span>Crianças, adolescentes, adultos e idosos</li>
+              <li><span class="checklist__icon" aria-hidden="true"><svg><use href="#i-check"/></svg></span>Ambiente acolhedor, discreto e confortável</li>
+              <li><span class="checklist__icon" aria-hidden="true"><svg><use href="#i-check"/></svg></span>Agendamento simples, direto pelo WhatsApp</li>
+              <li><span class="checklist__icon" aria-hidden="true"><svg><use href="#i-check"/></svg></span>Psicologia presencial e online</li>
+            </ul>
+
+            <a class="btn btn--primary" data-reveal
+               href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta."
+               target="_blank" rel="noopener" data-cta="about"
+               aria-label="Agendar minha consulta pelo WhatsApp (abre em nova aba)">
+              <svg class="btn__icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+              Agendar minha consulta
+              <svg class="btn__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
             </a>
-            <a class="btn btn--ghost btn--lg" href="#especialidades">
-              Ver especialidades
-              <svg class="icon icon--end" aria-hidden="true"><use href="#i-arrow"/></svg>
-            </a>
           </div>
-          <ul class="hero__trust" data-reveal style="--delay:.32s" aria-label="Diferenciais">
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Atendimento humanizado</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Resposta rápida no WhatsApp</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Sigilo em cada consulta</li>
-          </ul>
         </div>
 
-        <div class="hero__media" data-reveal="right" style="--delay:.15s">
-          <figure class="hero__photo">
-            <img src="Assets/img/hero-paciente.webp" alt="Mulher sorrindo, tranquila e acolhida" width="880" height="1040" fetchpriority="high">
-          </figure>
-          <div class="float-card float-card--top">
-            <span class="float-card__num">9</span>
-            <span class="float-card__text">especialidades<br>em um só endereço</span>
+        <!-- Por que a Vigore -->
+        <div class="help" data-reveal>
+          <div class="help__main">
+            <p class="eyebrow"><span class="eyebrow__dot" aria-hidden="true"></span>Por que a Vigore</p>
+            <h3 class="help__title">Cuidado de verdade, <em>perto de você.</em></h3>
+
+            <ul class="pillars">
+              <li class="pillar">
+                <span class="pillar__icon" aria-hidden="true"><svg><use href="#i-users"/></svg></span>
+                <p><strong>Equipe multidisciplinar</strong>Nove especialidades que conversam entre si sobre o seu cuidado.</p>
+              </li>
+              <li class="pillar">
+                <span class="pillar__icon" aria-hidden="true"><svg><use href="#i-heart"/></svg></span>
+                <p><strong>Atendimento humanizado</strong>Tempo para ouvir, sem pressa e sem julgamentos.</p>
+              </li>
+              <li class="pillar">
+                <span class="pillar__icon" aria-hidden="true"><svg><use href="#i-pin"/></svg></span>
+                <p><strong>Tudo em um só lugar</strong>Consultório físico em Montalvânia para toda a cidade e região.</p>
+              </li>
+              <li class="pillar">
+                <span class="pillar__icon" aria-hidden="true"><svg><use href="#i-video"/></svg></span>
+                <p><strong>Psicologia também online</strong>O mesmo sigilo e acolhimento, de onde você estiver.</p>
+              </li>
+            </ul>
           </div>
-          <div class="float-card float-card--bottom">
-            <span class="float-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-video"/></svg></span>
-            <span class="float-card__text"><strong>Teleconsulta</strong><br>Psicologia online</span>
-            <span class="pulse-dot" aria-hidden="true"></span>
-          </div>
-          <img class="hero__seal" src="Assets/img/logo-192.png" alt="" width="192" height="192" aria-hidden="true">
-        </div>
-      </div>
 
-      <!-- faixa de especialidades em movimento -->
-      <div class="marquee" aria-hidden="true">
-        <div class="marquee__track">
-          <span>Psicologia</span><span>Psicopedagogia</span><span>Psiquiatria</span><span>Dermatologia e Estética</span><span>Fonoaudiologia</span><span>Nutrição</span><span>Pediatria Geral</span><span>Ortopedia</span><span>Ginecologia e Obstetrícia</span>
-          <span>Psicologia</span><span>Psicopedagogia</span><span>Psiquiatria</span><span>Dermatologia e Estética</span><span>Fonoaudiologia</span><span>Nutrição</span><span>Pediatria Geral</span><span>Ortopedia</span><span>Ginecologia e Obstetrícia</span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== INTRO ===================== -->
-    <section class="section intro" aria-labelledby="intro-title">
-      <div class="container intro__grid">
-        <h2 class="intro__title" id="intro-title" data-reveal>
-          Um espaço que cuida de você <em>por inteiro</em>, do corpo à mente.
-        </h2>
-        <div class="intro__text" data-reveal style="--delay:.1s">
-          <p>
-            Saúde não se divide em partes. Por isso, a Vigore reúne profissionais de diferentes áreas
-            sob o mesmo teto, para que você seja ouvido com calma, acompanhado de perto e tratado
-            com a atenção que merece.
-          </p>
-          <span class="divider" aria-hidden="true"></span>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== POR QUE A VIGORE ===================== -->
-    <section class="section why" id="sobre" aria-labelledby="why-title">
-      <div class="container why__grid">
-        <figure class="why__media" data-reveal="left">
-          <img src="Assets/img/cuidado-humanizado.webp" alt="Profissional de saúde conversando com paciente de forma acolhedora" width="760" height="860" loading="lazy" decoding="async">
-        </figure>
-        <div class="why__panel">
-          <p class="eyebrow eyebrow--light" data-reveal>Por que a Vigore</p>
-          <h2 class="why__title" id="why-title" data-reveal style="--delay:.06s">Cuidado de verdade, <em>perto de você</em>.</h2>
-          <ul class="why__list">
-            <li class="why__item" data-reveal style="--delay:.12s">
-              <span class="why__icon"><svg class="icon" aria-hidden="true"><use href="#i-people"/></svg></span>
-              <p><strong>Equipe multidisciplinar.</strong> Nove especialidades que conversam entre si sobre o seu cuidado.</p>
-            </li>
-            <li class="why__item" data-reveal style="--delay:.18s">
-              <span class="why__icon"><svg class="icon" aria-hidden="true"><use href="#i-heart"/></svg></span>
-              <p><strong>Atendimento humanizado.</strong> Tempo para ouvir, sem pressa e sem julgamentos.</p>
-            </li>
-            <li class="why__item" data-reveal style="--delay:.24s">
-              <span class="why__icon"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg></span>
-              <p><strong>Tudo em um só lugar.</strong> Consultório físico em Montalvânia para toda a cidade e região.</p>
-            </li>
-            <li class="why__item" data-reveal style="--delay:.3s">
-              <span class="why__icon"><svg class="icon" aria-hidden="true"><use href="#i-video"/></svg></span>
-              <p><strong>Psicologia também online.</strong> O mesmo sigilo e acolhimento, de onde você estiver.</p>
-            </li>
-          </ul>
-        </div>
-      </div>
-    </section>
-
-    <!-- ===================== MAIS QUE UMA CLÍNICA ===================== -->
-    <section class="section about has-wave" aria-labelledby="about-title">
-      <svg class="wave-line" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-reveal><path d="M0 72C300 24 560 24 800 60S1220 120 1440 80"/></svg>
-      <div class="container about__grid">
-        <div class="about__content">
-          <p class="eyebrow" data-reveal>Mais que uma clínica</p>
-          <h2 class="section-title" id="about-title" data-reveal style="--delay:.06s">
-            Uma rede de cuidado <em>para toda a família</em>
-          </h2>
-          <p data-reveal style="--delay:.12s">
-            Da primeira consulta pediátrica ao acompanhamento psicológico, da nutrição à saúde da mulher:
-            aqui cada fase da vida tem um profissional preparado para acolher. Você não precisa procurar
-            em vários lugares; a gente organiza o caminho com você.
-          </p>
-          <ul class="checklist" data-reveal style="--delay:.18s">
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Crianças, adolescentes, adultos e idosos</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Ambiente acolhedor, discreto e confortável</li>
-            <li><svg class="icon" aria-hidden="true"><use href="#i-check"/></svg> Agendamento simples, direto pelo WhatsApp</li>
-          </ul>
-          <a class="btn btn--primary" data-reveal style="--delay:.24s" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener" aria-label="Agendar minha consulta pelo WhatsApp (abre em nova aba)">
-            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Agendar minha consulta
-          </a>
-        </div>
-        <div class="about__media" data-reveal="right">
-          <figure class="about__photo">
-            <img src="Assets/img/sobre-profissional.webp" alt="Profissional da saúde sorridente" width="800" height="980" loading="lazy" decoding="async">
-          </figure>
-          <div class="about__badge">
-            <svg class="icon" aria-hidden="true"><use href="#i-leaf"/></svg>
-            <span>Corpo <em>&amp;</em> Mente</span>
-          </div>
+          <aside class="help__aside" data-dark>
+            <img class="help__aside-img" src="Assets/img/cuidado-humanizado.webp" alt="" width="1169" height="1346" loading="lazy" decoding="async">
+            
+          </aside>
         </div>
       </div>
     </section>
 
     <!-- ===================== ESPECIALIDADES ===================== -->
-    <section class="section services has-wave" id="especialidades" aria-labelledby="services-title">
-      <svg class="wave-line" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-reveal><path d="M0 40C180 40 300 112 560 112S900 56 1100 56S1340 96 1440 88"/></svg>
+    <section class="section section--tint" id="especialidades" aria-labelledby="services-title">
+      <svg class="deco deco--serv-1" aria-hidden="true" focusable="false"><use href="#blob-c"/></svg>
+      <svg class="deco deco--serv-2" aria-hidden="true" focusable="false"><use href="#blob-a"/></svg>
       <div class="container">
-        <div class="services__head">
-          <div>
-            <p class="eyebrow eyebrow--light" data-reveal>Especialidades</p>
-            <h2 class="section-title section-title--light" id="services-title" data-reveal style="--delay:.06s">Como podemos <em>te ajudar?</em></h2>
-          </div>
-          <p class="services__intro" data-reveal style="--delay:.12s">
-            Escolha a especialidade e fale direto com a nossa equipe. A mensagem já vai pronta no seu WhatsApp.
-          </p>
+        <div class="intro">
+          <p class="eyebrow" data-reveal><span class="eyebrow__dot" aria-hidden="true"></span>Especialidades</p>
+          <h2 class="section-title" id="services-title" data-reveal style="--delay:80ms">Como podemos <em>te ajudar?</em></h2>
+          <p class="intro__text" data-reveal style="--delay:160ms">Escolha a especialidade e fale direto com a nossa equipe. A mensagem já vai pronta no seu WhatsApp.</p>
         </div>
 
-        <ul class="services__grid">
-          <li class="service-card" data-reveal>
-            <span class="service-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a8 8 0 1 1 3.2 6.4L4 19l1-3.4A7.9 7.9 0 0 1 4 11Z"/><path d="M12 14.5s-3.2-1.9-3.2-4.2a1.7 1.7 0 0 1 3.2-.8 1.7 1.7 0 0 1 3.2.8c0 2.3-3.2 4.2-3.2 4.2Z"/></g></svg></span>
-            <h3 class="service-card__title">Psicologia</h3>
-            <p class="service-card__text">Escuta acolhedora para ansiedade, luto, autoestima e relações. Presencial ou online.</p>
-            <a class="service-card__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Psicologia." target="_blank" rel="noopener" aria-label="Agendar Psicologia pelo WhatsApp (abre em nova aba)">Agendar <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+        <ul class="services">
+          <li class="service service--featured" data-dark data-reveal>
+            <div class="service__top">
+              <span class="service__num">01</span>
+              <span class="service__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M4 11a8 8 0 1 1 3.2 6.4L4 19l1-3.4A7.9 7.9 0 0 1 4 11Z"/><path d="M12 14.5s-3.2-1.9-3.2-4.2a1.7 1.7 0 0 1 3.2-.8 1.7 1.7 0 0 1 3.2.8c0 2.3-3.2 4.2-3.2 4.2Z"/></g></svg></span>
+            </div>
+            <h3 class="service__title">Psicologia <span class="service__badge">Também online</span></h3>
+            <p class="service__text">Escuta acolhedora para ansiedade, luto, autoestima e relações. Presencial ou online.</p>
+            <a class="service__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Psicologia." target="_blank" rel="noopener" data-cta="service-psicologia" aria-label="Agendar Psicologia pelo WhatsApp (abre em nova aba)">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </li>
-          <li class="service-card" data-reveal style="--delay:.06s">
-            <span class="service-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5Z"/><path d="M12 6.5v13"/></g></svg></span>
-            <h3 class="service-card__title">Psicopedagogia</h3>
-            <p class="service-card__text">Apoio a crianças e adolescentes com dificuldades de aprendizagem, atenção e leitura.</p>
-            <a class="service-card__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Psicopedagogia." target="_blank" rel="noopener" aria-label="Agendar Psicopedagogia pelo WhatsApp (abre em nova aba)">Agendar <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <li class="service" data-reveal style="--delay:80ms">
+            <div class="service__top">
+              <span class="service__num">02</span>
+              <span class="service__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 6.5C10 5 7 4.5 3.5 5v13c3.5-.5 6.5 0 8.5 1.5 2-1.5 5-2 8.5-1.5V5C17 4.5 14 5 12 6.5Z"/><path d="M12 6.5v13"/></g></svg></span>
+            </div>
+            <h3 class="service__title">Psicopedagogia</h3>
+            <p class="service__text">Apoio a crianças e adolescentes com dificuldades de aprendizagem, atenção e leitura.</p>
+            <a class="service__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Psicopedagogia." target="_blank" rel="noopener" data-cta="service-psicopedagogia" aria-label="Agendar Psicopedagogia pelo WhatsApp (abre em nova aba)">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </li>
-          <li class="service-card" data-reveal style="--delay:.12s">
-            <span class="service-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 4.5a3 3 0 0 0-3 2.6 3 3 0 0 0-2 4.6 3 3 0 0 0 1.2 4.6 3 3 0 0 0 3.8 3.2V4.5Z"/><path d="M14.5 4.5a3 3 0 0 1 3 2.6 3 3 0 0 1 2 4.6 3 3 0 0 1-1.2 4.6 3 3 0 0 1-3.8 3.2V4.5Z"/><path d="M9.5 9.5H8m6.5 0H16m-6.5 4H7.5m7 0h2"/></g></svg></span>
-            <h3 class="service-card__title">Psiquiatria</h3>
-            <p class="service-card__text">Avaliação e tratamento de ansiedade, depressão, insônia e outros transtornos.</p>
-            <a class="service-card__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Psiquiatria." target="_blank" rel="noopener" aria-label="Agendar Psiquiatria pelo WhatsApp (abre em nova aba)">Agendar <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <li class="service" data-reveal style="--delay:160ms">
+            <div class="service__top">
+              <span class="service__num">03</span>
+              <span class="service__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M9.5 4.5a3 3 0 0 0-3 2.6 3 3 0 0 0-2 4.6 3 3 0 0 0 1.2 4.6 3 3 0 0 0 3.8 3.2V4.5Z"/><path d="M14.5 4.5a3 3 0 0 1 3 2.6 3 3 0 0 1 2 4.6 3 3 0 0 1-1.2 4.6 3 3 0 0 1-3.8 3.2V4.5Z"/><path d="M9.5 9.5H8m6.5 0H16m-6.5 4H7.5m7 0h2"/></g></svg></span>
+            </div>
+            <h3 class="service__title">Psiquiatria</h3>
+            <p class="service__text">Avaliação e tratamento de ansiedade, depressão, insônia e outros transtornos.</p>
+            <a class="service__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Psiquiatria." target="_blank" rel="noopener" data-cta="service-psiquiatria" aria-label="Agendar Psiquiatria pelo WhatsApp (abre em nova aba)">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </li>
-          <li class="service-card" data-reveal>
-            <span class="service-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5c1 4.2 3.3 6.5 7.5 7.5-4.2 1-6.5 3.3-7.5 7.5-1-4.2-3.3-6.5-7.5-7.5 4.2-1 6.5-3.3 7.5-7.5Z"/><path d="M19 17.5c.3 1.2 1 1.9 2.2 2.2-1.2.3-1.9 1-2.2 2.2-.3-1.2-1-1.9-2.2-2.2 1.2-.3 1.9-1 2.2-2.2Z"/></g></svg></span>
-            <h3 class="service-card__title">Dermatologia e Estética</h3>
-            <p class="service-card__text">Cuidado com pele, cabelos e unhas, com procedimentos estéticos seguros.</p>
-            <a class="service-card__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Dermatologia%20e%20Est%C3%A9tica." target="_blank" rel="noopener" aria-label="Agendar Dermatologia e Estética pelo WhatsApp (abre em nova aba)">Agendar <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <li class="service" data-reveal>
+            <div class="service__top">
+              <span class="service__num">04</span>
+              <span class="service__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3.5c1 4.2 3.3 6.5 7.5 7.5-4.2 1-6.5 3.3-7.5 7.5-1-4.2-3.3-6.5-7.5-7.5 4.2-1 6.5-3.3 7.5-7.5Z"/><path d="M19 17.5c.3 1.2 1 1.9 2.2 2.2-1.2.3-1.9 1-2.2 2.2-.3-1.2-1-1.9-2.2-2.2 1.2-.3 1.9-1 2.2-2.2Z"/></g></svg></span>
+            </div>
+            <h3 class="service__title">Dermatologia e Estética</h3>
+            <p class="service__text">Cuidado com pele, cabelos e unhas, com procedimentos estéticos seguros.</p>
+            <a class="service__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Dermatologia%20e%20Est%C3%A9tica." target="_blank" rel="noopener" data-cta="service-dermatologia" aria-label="Agendar Dermatologia e Estética pelo WhatsApp (abre em nova aba)">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </li>
-          <li class="service-card" data-reveal style="--delay:.06s">
-            <span class="service-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></g></svg></span>
-            <h3 class="service-card__title">Fonoaudiologia</h3>
-            <p class="service-card__text">Fala, linguagem, voz, audição e deglutição, da infância à terceira idade.</p>
-            <a class="service-card__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Fonoaudiologia." target="_blank" rel="noopener" aria-label="Agendar Fonoaudiologia pelo WhatsApp (abre em nova aba)">Agendar <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <li class="service" data-reveal style="--delay:80ms">
+            <div class="service__top">
+              <span class="service__num">05</span>
+              <span class="service__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" d="M4 10v4M8 7v10M12 4v16M16 8v8M20 11v2"/></svg></span>
+            </div>
+            <h3 class="service__title">Fonoaudiologia</h3>
+            <p class="service__text">Fala, linguagem, voz, audição e deglutição, da infância à terceira idade.</p>
+            <a class="service__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Fonoaudiologia." target="_blank" rel="noopener" data-cta="service-fonoaudiologia" aria-label="Agendar Fonoaudiologia pelo WhatsApp (abre em nova aba)">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </li>
-          <li class="service-card" data-reveal style="--delay:.12s">
-            <span class="service-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8c-1.5-1.2-3.6-1.4-5.2-.4C4.4 9 4 12.5 5.4 15.8 6.6 18.6 8.6 20.4 10.4 20c.7-.2 1.1-.5 1.6-.5s.9.3 1.6.5c1.8.4 3.8-1.4 5-4.2C20 12.5 19.6 9 17.2 7.6c-1.6-1-3.7-.8-5.2.4Z"/><path d="M12 8c0-2 1-3.6 3-4.5"/></g></svg></span>
-            <h3 class="service-card__title">Nutrição</h3>
-            <p class="service-card__text">Planos alimentares reais, pensados para a sua rotina, seus objetivos e sua saúde.</p>
-            <a class="service-card__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Nutri%C3%A7%C3%A3o." target="_blank" rel="noopener" aria-label="Agendar Nutrição pelo WhatsApp (abre em nova aba)">Agendar <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <li class="service" data-reveal style="--delay:160ms">
+            <div class="service__top">
+              <span class="service__num">06</span>
+              <span class="service__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 8c-1.5-1.2-3.6-1.4-5.2-.4C4.4 9 4 12.5 5.4 15.8 6.6 18.6 8.6 20.4 10.4 20c.7-.2 1.1-.5 1.6-.5s.9.3 1.6.5c1.8.4 3.8-1.4 5-4.2C20 12.5 19.6 9 17.2 7.6c-1.6-1-3.7-.8-5.2.4Z"/><path d="M12 8c0-2 1-3.6 3-4.5"/></g></svg></span>
+            </div>
+            <h3 class="service__title">Nutrição</h3>
+            <p class="service__text">Planos alimentares reais, pensados para a sua rotina, seus objetivos e sua saúde.</p>
+            <a class="service__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Nutri%C3%A7%C3%A3o." target="_blank" rel="noopener" data-cta="service-nutricao" aria-label="Agendar Nutrição pelo WhatsApp (abre em nova aba)">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </li>
-          <li class="service-card" data-reveal>
-            <span class="service-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7.5"/><path d="M12 5.5c0-1.4 1-2.2 2.2-2"/><circle cx="9.3" cy="12" r=".5" fill="currentColor"/><circle cx="14.7" cy="12" r=".5" fill="currentColor"/><path d="M9.8 15.5c1.3 1 3.1 1 4.4 0"/></g></svg></span>
-            <h3 class="service-card__title">Pediatria Geral</h3>
-            <p class="service-card__text">Acompanhamento do crescimento e da saúde do seu filho, com carinho em cada consulta.</p>
-            <a class="service-card__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Pediatria%20Geral." target="_blank" rel="noopener" aria-label="Agendar Pediatria Geral pelo WhatsApp (abre em nova aba)">Agendar <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <li class="service" data-reveal>
+            <div class="service__top">
+              <span class="service__num">07</span>
+              <span class="service__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><circle cx="12" cy="13" r="7.5"/><path d="M12 5.5c0-1.4 1-2.2 2.2-2"/><circle cx="9.3" cy="12" r=".5" fill="currentColor"/><circle cx="14.7" cy="12" r=".5" fill="currentColor"/><path d="M9.8 15.5c1.3 1 3.1 1 4.4 0"/></g></svg></span>
+            </div>
+            <h3 class="service__title">Pediatria Geral</h3>
+            <p class="service__text">Acompanhamento do crescimento e da saúde do seu filho, com carinho em cada consulta.</p>
+            <a class="service__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Pediatria%20Geral." target="_blank" rel="noopener" data-cta="service-pediatria" aria-label="Agendar Pediatria Geral pelo WhatsApp (abre em nova aba)">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </li>
-          <li class="service-card" data-reveal style="--delay:.06s">
-            <span class="service-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><path fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round" d="M8.6 6.2a2.4 2.4 0 1 0-3.3 3.3 2.4 2.4 0 1 0 3.3 3.3l4.6 4.6a2.4 2.4 0 1 0 3.3 3.3 2.4 2.4 0 1 0 3.3-3.3 2.4 2.4 0 1 0-3.3-3.3l-4.6-4.6a2.4 2.4 0 1 0-3.3-3.3Z"/></svg></span>
-            <h3 class="service-card__title">Ortopedia</h3>
-            <p class="service-card__text">Dores nas costas, articulações, lesões e postura, para você voltar a se mover bem.</p>
-            <a class="service-card__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Ortopedia." target="_blank" rel="noopener" aria-label="Agendar Ortopedia pelo WhatsApp (abre em nova aba)">Agendar <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <li class="service" data-reveal style="--delay:80ms">
+            <div class="service__top">
+              <span class="service__num">08</span>
+              <span class="service__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><path fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round" d="M8.6 6.2a2.4 2.4 0 1 0-3.3 3.3 2.4 2.4 0 1 0 3.3 3.3l4.6 4.6a2.4 2.4 0 1 0 3.3 3.3 2.4 2.4 0 1 0 3.3-3.3 2.4 2.4 0 1 0-3.3-3.3l-4.6-4.6a2.4 2.4 0 1 0-3.3-3.3Z"/></svg></span>
+            </div>
+            <h3 class="service__title">Ortopedia</h3>
+            <p class="service__text">Dores nas costas, articulações, lesões e postura, para você voltar a se mover bem.</p>
+            <a class="service__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Ortopedia." target="_blank" rel="noopener" data-cta="service-ortopedia" aria-label="Agendar Ortopedia pelo WhatsApp (abre em nova aba)">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </li>
-          <li class="service-card" data-reveal style="--delay:.12s">
-            <span class="service-card__icon"><svg viewBox="0 0 24 24" aria-hidden="true"><g fill="none" stroke="currentColor" stroke-width="1.5" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-2.2 2-2.2 5 0 7 2.2-2 2.2-5 0-7Z"/><path d="M12 10c-3-.6-5.4.8-6.2 3.6 3 .6 5.4-.8 6.2-3.6Zm0 0c3-.6 5.4.8 6.2 3.6-3 .6-5.4-.8-6.2-3.6Z"/><path d="M12 10v11M9 18h6"/></g></svg></span>
-            <h3 class="service-card__title">Ginecologia e Obstetrícia</h3>
-            <p class="service-card__text">Saúde da mulher em todas as fases, do preventivo ao pré-natal.</p>
-            <a class="service-card__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Ginecologia%20e%20Obstetr%C3%ADcia." target="_blank" rel="noopener" aria-label="Agendar Ginecologia e Obstetrícia pelo WhatsApp (abre em nova aba)">Agendar <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
+          <li class="service" data-reveal style="--delay:160ms">
+            <div class="service__top">
+              <span class="service__num">09</span>
+              <span class="service__icon" aria-hidden="true"><svg viewBox="0 0 24 24"><g fill="none" stroke="currentColor" stroke-width="1.6" stroke-linecap="round" stroke-linejoin="round"><path d="M12 3c-2.2 2-2.2 5 0 7 2.2-2 2.2-5 0-7Z"/><path d="M12 10c-3-.6-5.4.8-6.2 3.6 3 .6 5.4-.8 6.2-3.6Zm0 0c3-.6 5.4.8 6.2 3.6-3 .6-5.4-.8-6.2-3.6Z"/><path d="M12 10v11M9 18h6"/></g></svg></span>
+            </div>
+            <h3 class="service__title">Ginecologia e Obstetrícia</h3>
+            <p class="service__text">Saúde da mulher em todas as fases, do preventivo ao pré-natal.</p>
+            <a class="service__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20consulta%20de%20Ginecologia%20e%20Obstetr%C3%ADcia." target="_blank" rel="noopener" data-cta="service-ginecologia" aria-label="Agendar Ginecologia e Obstetrícia pelo WhatsApp (abre em nova aba)">Agendar <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
           </li>
         </ul>
       </div>
     </section>
 
     <!-- ===================== TELECONSULTA ===================== -->
-    <section class="section tele has-wave" id="teleconsulta" aria-labelledby="tele-title">
-      <svg class="wave-line" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-reveal><path d="M0 108C260 108 420 40 720 40S1180 108 1440 56"/></svg>
-      <div class="container tele__grid">
-        <div class="tele__media" data-reveal="left">
-          <figure class="tele__photo">
-            <img src="Assets/img/teleconsulta.webp" alt="Homem em sessão de terapia online pelo notebook, em ambiente tranquilo" width="880" height="980" loading="lazy" decoding="async">
-          </figure>
-          <div class="float-card float-card--tele">
-            <span class="float-card__icon"><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg></span>
-            <span class="float-card__text"><strong>Sessão sigilosa</strong><br>Ambiente seguro e privado</span>
+    <section class="section" id="teleconsulta" aria-labelledby="tele-title">
+      <svg class="deco deco--tele-1" aria-hidden="true" focusable="false"><use href="#blob-b"/></svg>
+      <div class="container">
+        <div class="split split--reverse">
+          <div class="split__media" data-reveal="scale">
+
+            <img class="split__photo" src="Assets/img/teleconsulta.webp"
+                 alt="Homem em sessão de terapia online pelo notebook, em ambiente tranquilo"
+                 width="880" height="980" loading="lazy" decoding="async">
+            <div class="split__tag">
+              <svg aria-hidden="true"><use href="#i-lock"/></svg>
+              <span><strong>Sessão sigilosa</strong><small>Ambiente seguro e privado</small></span>
+            </div>
+          </div>
+
+          <div class="split__content">
+            <p class="eyebrow" data-reveal><span class="eyebrow__dot" aria-hidden="true"></span>Teleconsulta</p>
+            <h2 class="section-title" id="tele-title" data-reveal style="--delay:80ms">Terapia de onde você estiver, <em>no seu tempo.</em></h2>
+
+            <div class="split__text" data-reveal style="--delay:160ms">
+              <p>Rotina corrida, distância ou simplesmente mais conforto: os atendimentos de <strong>Psicologia</strong> também acontecem por vídeo, com a mesma escuta atenta e o mesmo sigilo do consultório.</p>
+            </div>
+
+            <blockquote class="split__quote" data-reveal>
+              <p>O mesmo acolhimento do consultório, na tela do seu celular.</p>
+            </blockquote>
+
+            <ul class="checklist" data-reveal>
+              <li><span class="checklist__icon" aria-hidden="true"><svg><use href="#i-video"/></svg></span>Sessões por chamada de vídeo</li>
+              <li><span class="checklist__icon" aria-hidden="true"><svg><use href="#i-clock"/></svg></span>Horários flexíveis, no seu tempo</li>
+              <li><span class="checklist__icon" aria-hidden="true"><svg><use href="#i-lock"/></svg></span>Sigilo profissional garantido</li>
+              <li><span class="checklist__icon" aria-hidden="true"><svg><use href="#i-pin"/></svg></span>Para Montalvânia, região e onde você estiver</li>
+            </ul>
+
+            <a class="btn btn--primary" data-reveal
+               href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20teleconsulta%20de%20Psicologia."
+               target="_blank" rel="noopener" data-cta="tele"
+               aria-label="Quero agendar teleconsulta de Psicologia pelo WhatsApp (abre em nova aba)">
+              <svg class="btn__icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+              Quero a teleconsulta
+              <svg class="btn__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
           </div>
         </div>
-        <div class="tele__content">
-          <p class="eyebrow" data-reveal>Teleconsulta</p>
-          <h2 class="section-title" id="tele-title" data-reveal style="--delay:.06s">Terapia de onde você estiver, <em>no seu tempo</em></h2>
-          <p data-reveal style="--delay:.12s">
-            Rotina corrida, distância ou simplesmente mais conforto: os atendimentos de <strong>Psicologia</strong>
-            também acontecem por vídeo, com a mesma escuta atenta e o mesmo sigilo do consultório.
-          </p>
-          <ul class="tele__features" data-reveal style="--delay:.18s">
-            <li><span><svg class="icon" aria-hidden="true"><use href="#i-video"/></svg></span> Sessões por chamada de vídeo</li>
-            <li><span><svg class="icon" aria-hidden="true"><use href="#i-clock"/></svg></span> Horários flexíveis</li>
-            <li><span><svg class="icon" aria-hidden="true"><use href="#i-lock"/></svg></span> Sigilo profissional garantido</li>
-          </ul>
-          <a class="btn btn--primary" data-reveal style="--delay:.24s" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Gostaria%20de%20agendar%20uma%20teleconsulta%20de%20Psicologia." target="_blank" rel="noopener" aria-label="Quero agendar teleconsulta de Psicologia pelo WhatsApp (abre em nova aba)">
-            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Quero a teleconsulta
-          </a>
-        </div>
       </div>
     </section>
 
-    <!-- ===================== COMO FUNCIONA ===================== -->
-    <section class="section steps has-wave" id="como-funciona" aria-labelledby="steps-title">
-      <svg class="wave-line" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-reveal><path d="M0 72C300 24 560 24 800 60S1220 120 1440 80"/></svg>
+    <!-- ===================== COMO FUNCIONA + DÚVIDAS ===================== -->
+    <section class="section section--tint" id="como-funciona" aria-labelledby="como-title">
+      <svg class="deco deco--como-1" aria-hidden="true" focusable="false"><use href="#blob-c"/></svg>
+      <svg class="deco deco--como-2" aria-hidden="true" focusable="false"><use href="#blob-a"/></svg>
       <div class="container">
-        <div class="steps__head">
-          <p class="eyebrow" data-reveal>Como funciona</p>
-          <h2 class="section-title" id="steps-title" data-reveal style="--delay:.06s">Agendar é simples. <em>Leva um minuto.</em></h2>
-        </div>
-        <ol class="steps__list">
-          <li class="step" data-reveal>
-            <span class="step__num" aria-hidden="true">01</span>
-            <h3 class="step__title">Chame no WhatsApp</h3>
-            <p>Toque em qualquer botão da página. A conversa já abre com uma mensagem pronta.</p>
-          </li>
-          <li class="step" data-reveal style="--delay:.1s">
-            <span class="step__num" aria-hidden="true">02</span>
-            <h3 class="step__title">Escolha especialidade e horário</h3>
-            <p>Nossa equipe tira suas dúvidas e encontra o melhor horário para você.</p>
-          </li>
-          <li class="step" data-reveal style="--delay:.2s">
-            <span class="step__num" aria-hidden="true">03</span>
-            <h3 class="step__title">Seja bem cuidado</h3>
-            <p>No consultório ou online, você é recebido com atenção, do primeiro “olá” ao retorno.</p>
-          </li>
-        </ol>
-      </div>
-    </section>
+        <div class="steps">
+          <div class="steps__intro">
+            <p class="eyebrow" data-reveal><span class="eyebrow__dot" aria-hidden="true"></span>Como funciona</p>
+            <h2 class="section-title" id="como-title" data-reveal style="--delay:80ms">Agendar é simples. <em>Leva um minuto.</em></h2>
+            <p class="steps__text" data-reveal style="--delay:160ms">Sem formulários e sem espera: uma mensagem no WhatsApp e a nossa equipe cuida do resto com você.</p>
+            <a class="btn btn--primary" data-reveal style="--delay:220ms"
+               href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta."
+               target="_blank" rel="noopener" data-cta="steps"
+               aria-label="Dar o primeiro passo pelo WhatsApp (abre em nova aba)">
+              <svg class="btn__icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+              Dar o primeiro passo
+            </a>
+          </div>
 
-    <!-- ===================== DÚVIDAS ===================== -->
-    <section class="section faq has-wave" id="duvidas" aria-labelledby="faq-title">
-      <svg class="wave-line" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-reveal><path d="M0 40C180 40 300 112 560 112S900 56 1100 56S1340 96 1440 88"/></svg>
-      <div class="container faq__grid">
-        <div class="faq__intro">
-          <p class="eyebrow" data-reveal>Dúvidas frequentes</p>
-          <h2 class="section-title" id="faq-title" data-reveal style="--delay:.06s">Ficou alguma <em>pergunta?</em></h2>
-          <p data-reveal style="--delay:.12s">Se a sua dúvida não estiver aqui, mande uma mensagem. A gente responde rapidinho.</p>
-          <a class="btn btn--ghost" data-reveal style="--delay:.18s" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20os%20atendimentos%20da%20Vigore." target="_blank" rel="noopener" aria-label="Tirar dúvida pelo WhatsApp (abre em nova aba)">
-            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> Tirar dúvida no WhatsApp
-          </a>
+          <ol class="steps__list">
+            <li class="step step--featured" data-dark data-reveal>
+              <div class="step__top">
+                <span class="step__num">01</span>
+                <span class="step__icon" aria-hidden="true"><svg><use href="#i-chat"/></svg></span>
+              </div>
+              <h3 class="step__title">Chame no WhatsApp</h3>
+              <p class="step__text">Toque em qualquer botão da página. A conversa já abre com uma mensagem pronta.</p>
+            </li>
+            <li class="step" data-reveal style="--delay:100ms">
+              <div class="step__top">
+                <span class="step__num">02</span>
+                <span class="step__icon" aria-hidden="true"><svg><use href="#i-calendar"/></svg></span>
+              </div>
+              <h3 class="step__title">Escolha especialidade e horário</h3>
+              <p class="step__text">Nossa equipe tira suas dúvidas e encontra o melhor horário para você.</p>
+            </li>
+            <li class="step" data-reveal style="--delay:200ms">
+              <div class="step__top">
+                <span class="step__num">03</span>
+                <span class="step__icon" aria-hidden="true"><svg><use href="#i-sprout"/></svg></span>
+              </div>
+              <h3 class="step__title">Seja bem cuidado</h3>
+              <p class="step__text">No consultório ou online, você é recebido com atenção, do primeiro “olá” ao retorno.</p>
+            </li>
+          </ol>
         </div>
-        <div class="faq__list">
-          <details class="faq__item" data-reveal>
-            <summary>Como faço para agendar uma consulta?</summary>
-            <div class="faq__answer"><p>É só chamar a Vigore no WhatsApp pelo número (38) 99866-8730 ou por qualquer botão desta página. Nossa equipe confirma a especialidade, o dia e o horário com você.</p></div>
-          </details>
-          <details class="faq__item" data-reveal style="--delay:.06s">
-            <summary>Quais atendimentos podem ser feitos online?</summary>
-            <div class="faq__answer"><p>A teleconsulta está disponível para os atendimentos de Psicologia. As demais especialidades são realizadas no consultório, em Montalvânia.</p></div>
-          </details>
-          <details class="faq__item" data-reveal style="--delay:.12s">
-            <summary>A Vigore atende crianças?</summary>
-            <div class="faq__answer"><p>Sim. Pediatria Geral, Psicopedagogia, Fonoaudiologia e Psicologia acompanham crianças e adolescentes com todo o cuidado que essa fase pede.</p></div>
-          </details>
-          <details class="faq__item" data-reveal style="--delay:.18s">
-            <summary>Atendem pessoas de outras cidades da região?</summary>
-            <div class="faq__answer"><p>Com certeza. O consultório recebe pacientes de Montalvânia e de toda a região, e a Psicologia online atende você onde estiver.</p></div>
-          </details>
-          <details class="faq__item" data-reveal style="--delay:.24s">
-            <summary>Quais são os valores e as formas de pagamento?</summary>
-            <div class="faq__answer"><p>Os valores variam conforme a especialidade. Chame no WhatsApp para receber as informações atualizadas de valores e formas de pagamento.</p></div>
-          </details>
+
+        <!-- Dúvidas frequentes -->
+        <div class="faq" id="duvidas">
+          <div class="faq__intro">
+            <p class="eyebrow" data-reveal><span class="eyebrow__dot" aria-hidden="true"></span>Dúvidas frequentes</p>
+            <h2 class="section-title section-title--sm" data-reveal style="--delay:80ms">Ficou alguma <em>pergunta?</em></h2>
+            <p class="faq__text" data-reveal style="--delay:160ms">Se a sua dúvida não estiver aqui, mande uma mensagem. A gente responde rapidinho.</p>
+            <a class="link-arrow link-arrow--light" data-reveal style="--delay:220ms"
+               href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Tenho%20uma%20d%C3%BAvida%20sobre%20os%20atendimentos%20da%20Vigore."
+               target="_blank" rel="noopener" data-cta="faq">
+              Tirar dúvida no WhatsApp <svg aria-hidden="true"><use href="#i-arrow"/></svg>
+            </a>
+          </div>
+
+          <div class="faq__list" data-reveal>
+            <details class="faq__item" name="faq">
+              <summary>Como faço para agendar uma consulta?<span class="faq__icon" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></summary>
+              <div class="faq__answer"><p>É só chamar a Vigore no WhatsApp pelo número (38) 99866-8730 ou por qualquer botão desta página. Nossa equipe confirma a especialidade, o dia e o horário com você.</p></div>
+            </details>
+            <details class="faq__item" name="faq">
+              <summary>Quais atendimentos podem ser feitos online?<span class="faq__icon" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></summary>
+              <div class="faq__answer"><p>A teleconsulta está disponível para os atendimentos de Psicologia. As demais especialidades são realizadas no consultório, em Montalvânia.</p></div>
+            </details>
+            <details class="faq__item" name="faq">
+              <summary>A Vigore atende crianças?<span class="faq__icon" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></summary>
+              <div class="faq__answer"><p>Sim. Pediatria Geral, Psicopedagogia, Fonoaudiologia e Psicologia acompanham crianças e adolescentes com todo o cuidado que essa fase pede.</p></div>
+            </details>
+            <details class="faq__item" name="faq">
+              <summary>Atendem pessoas de outras cidades da região?<span class="faq__icon" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></summary>
+              <div class="faq__answer"><p>Com certeza. O consultório recebe pacientes de Montalvânia e de toda a região, e a Psicologia online atende você onde estiver.</p></div>
+            </details>
+            <details class="faq__item" name="faq">
+              <summary>Quais são os valores e as formas de pagamento?<span class="faq__icon" aria-hidden="true"><svg><use href="#i-plus"/></svg></span></summary>
+              <div class="faq__answer"><p>Os valores variam conforme a especialidade. Chame no WhatsApp para receber as informações atualizadas de valores e formas de pagamento.</p></div>
+            </details>
+          </div>
         </div>
       </div>
     </section>
 
     <!-- ===================== INSTAGRAM ===================== -->
-    <section class="section insta" aria-labelledby="insta-title">
+    <section class="section" aria-labelledby="insta-title">
       <div class="container">
+        <div class="insta">
         <div class="insta__head">
           <div>
-            <p class="eyebrow" data-reveal>Instagram</p>
-            <h2 class="section-title" id="insta-title" data-reveal style="--delay:.06s">Conteúdo para cuidar de você <em>todos os dias</em></h2>
+            <p class="eyebrow" data-reveal><span class="eyebrow__dot" aria-hidden="true"></span>Instagram</p>
+            <h2 class="section-title section-title--sm" id="insta-title" data-reveal style="--delay:80ms">Conteúdo para cuidar de você <em>todos os dias</em></h2>
           </div>
-          <a class="btn btn--outline" data-reveal style="--delay:.12s" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Seguir @clinicavigore_ no Instagram (abre em nova aba)">
-            <svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg> Seguir @clinicavigore_
+          <a class="btn btn--outline" data-reveal style="--delay:160ms" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" data-cta="insta" aria-label="Seguir @clinicavigore_ no Instagram (abre em nova aba)">
+            <svg class="btn__icon" aria-hidden="true"><use href="#i-instagram"/></svg>
+            Seguir @clinicavigore_
           </a>
         </div>
         <ul class="insta__grid">
-          <li data-reveal><a class="insta__tile" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram da Vigore (abre em nova aba)"><img src="Assets/img/insta-nutricao.webp" alt="Prato colorido e saudável" width="520" height="520" loading="lazy" decoding="async"><span class="insta__overlay"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-          <li data-reveal style="--delay:.06s"><a class="insta__tile" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram da Vigore (abre em nova aba)"><img src="Assets/img/insta-estetica.webp" alt="Tratamento estético facial" width="520" height="520" loading="lazy" decoding="async"><span class="insta__overlay"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-          <li data-reveal style="--delay:.12s"><a class="insta__tile" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram da Vigore (abre em nova aba)"><img src="Assets/img/insta-pediatria.webp" alt="Criança brincando em ambiente acolhedor" width="520" height="520" loading="lazy" decoding="async"><span class="insta__overlay"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-          <li data-reveal style="--delay:.18s"><a class="insta__tile" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram da Vigore (abre em nova aba)"><img src="Assets/img/insta-bem-estar.webp" alt="Pessoa meditando ao pôr do sol" width="520" height="520" loading="lazy" decoding="async"><span class="insta__overlay"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-          <li data-reveal style="--delay:.24s"><a class="insta__tile" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram da Vigore (abre em nova aba)"><img src="Assets/img/insta-dermato.webp" alt="Cuidados com a pele" width="520" height="520" loading="lazy" decoding="async"><span class="insta__overlay"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
-          <li data-reveal style="--delay:.3s"><a class="insta__tile" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram da Vigore (abre em nova aba)"><img src="Assets/img/insta-relax.webp" alt="Momento de relaxamento e autocuidado" width="520" height="520" loading="lazy" decoding="async"><span class="insta__overlay"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+          <li data-reveal><a class="insta__tile" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram da Vigore (abre em nova aba)"><img src="Assets/img/insta-nutricao.webp" alt="Prato colorido e saudável" width="433" height="433" loading="lazy" decoding="async"><span class="insta__overlay"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+          <li data-reveal style="--delay:60ms"><a class="insta__tile" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram da Vigore (abre em nova aba)"><img src="Assets/img/insta-estetica.webp" alt="Tratamento estético facial" width="433" height="433" loading="lazy" decoding="async"><span class="insta__overlay"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+          <li data-reveal style="--delay:120ms"><a class="insta__tile" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram da Vigore (abre em nova aba)"><img src="Assets/img/insta-pediatria.webp" alt="Criança brincando em ambiente acolhedor" width="520" height="520" loading="lazy" decoding="async"><span class="insta__overlay"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+          <li data-reveal style="--delay:180ms"><a class="insta__tile" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram da Vigore (abre em nova aba)"><img src="Assets/img/insta-bem-estar.webp" alt="Pessoa meditando ao pôr do sol" width="430" height="433" loading="lazy" decoding="async"><span class="insta__overlay"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+          <li data-reveal style="--delay:240ms"><a class="insta__tile" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram da Vigore (abre em nova aba)"><img src="Assets/img/insta-dermato.webp" alt="Cuidados com a pele" width="520" height="520" loading="lazy" decoding="async"><span class="insta__overlay"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
+          <li data-reveal style="--delay:300ms"><a class="insta__tile" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Ver publicação no Instagram da Vigore (abre em nova aba)"><img src="Assets/img/insta-relax.webp" alt="Momento de relaxamento e autocuidado" width="520" height="520" loading="lazy" decoding="async"><span class="insta__overlay"><svg aria-hidden="true"><use href="#i-instagram"/></svg></span></a></li>
         </ul>
+        </div>
       </div>
     </section>
 
     <!-- ===================== CTA FINAL ===================== -->
-    <section class="cta has-wave" id="contato" aria-labelledby="cta-title">
-      <svg class="wave-line" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-reveal><path d="M0 128C360 32 1080 32 1440 128"/></svg>
-      <div class="container cta__inner">
-        <img class="cta__mark" src="Assets/img/logo-arvore.png" alt="" width="400" height="400" loading="lazy" aria-hidden="true">
-        <div class="cta__content">
-          <p class="eyebrow eyebrow--gold" data-reveal>Seu próximo passo</p>
-          <h2 class="cta__title" id="cta-title" data-reveal style="--delay:.06s">
-            Não adie mais o cuidado que você merece.
-            <em>Agende hoje.</em>
-          </h2>
-          <p class="cta__text" data-reveal style="--delay:.12s">
-            Cada dia de espera é um dia a mais convivendo com o que incomoda. Uma mensagem é o suficiente para começar.
-          </p>
-        </div>
-        <div class="cta__actions" data-reveal style="--delay:.18s">
-          <a class="btn btn--whatsapp btn--xl" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener" aria-label="Agendar agora pelo WhatsApp (abre em nova aba)">
-            <svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
-            Agendar pelo WhatsApp
-          </a>
-          <p class="cta__note">(38) 99866-8730 &middot; resposta rápida</p>
-          <a class="cta__map" href="https://maps.app.goo.gl/VJLw5xDFwneYc9Fa9" target="_blank" rel="noopener" aria-label="Ver localização da clínica no Google Maps (abre em nova aba)">
-            <svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> Como chegar à clínica
-          </a>
-        </div>
-        <figure class="cta__location" data-reveal style="--delay:.24s">
-          <div class="cta__frame">
-            <iframe src="https://maps.google.com/maps?q=Cl%C3%ADnica+Vigore+-+Corpo+e+Mente,+Montalv%C3%A2nia+-+MG&amp;ll=-14.4214173,-44.3665142&amp;z=17&amp;hl=pt-BR&amp;output=embed" title="Mapa com a localização da Clínica Vigore – Corpo e Mente, em Montalvânia (MG)" width="600" height="440" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+    <section class="cta" id="contato" aria-labelledby="cta-title">
+      <svg class="deco deco--cta-1" aria-hidden="true" focusable="false"><use href="#blob-a"/></svg>
+      <div class="container">
+        <div class="cta__panel" data-dark>
+          <svg class="cta__waves" viewBox="0 0 1200 60" preserveAspectRatio="none" aria-hidden="true" focusable="false">
+            <path d="M0 20Q50 0 100 20T200 20T300 20T400 20T500 20T600 20T700 20T800 20T900 20T1000 20T1100 20T1200 20"/>
+            <path d="M0 30Q50 10 100 30T200 30T300 30T400 30T500 30T600 30T700 30T800 30T900 30T1000 30T1100 30T1200 30"/>
+            <path d="M0 40Q50 20 100 40T200 40T300 40T400 40T500 40T600 40T700 40T800 40T900 40T1000 40T1100 40T1200 40"/>
+          </svg>
+
+          <div class="cta__content">
+            <p class="eyebrow eyebrow--dark" data-reveal><span class="eyebrow__dot" aria-hidden="true"></span>Seu próximo passo</p>
+            <h2 class="cta__title" id="cta-title" data-reveal style="--delay:80ms">
+              Não adie mais o cuidado que você merece. <em>Agende hoje.</em>
+            </h2>
+            <p class="cta__text" data-reveal style="--delay:160ms">Cada dia de espera é um dia a mais convivendo com o que incomoda. Uma mensagem é o suficiente para começar.</p>
+
+            <div class="cta__actions" data-reveal style="--delay:220ms">
+              <a class="btn btn--primary btn--xl"
+                 href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta."
+                 target="_blank" rel="noopener" data-cta="cta-final"
+                 aria-label="Agendar agora pelo WhatsApp (abre em nova aba)">
+                <svg class="btn__icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
+                Agendar pelo WhatsApp
+                <svg class="btn__arrow" aria-hidden="true"><use href="#i-arrow"/></svg>
+              </a>
+              <ul class="cta__info">
+                <li>
+                  <span class="cta__info-icon"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></span>
+                  <span><strong>(38) 99866-8730</strong><small>Resposta rápida pelo WhatsApp</small></span>
+                </li>
+                <li>
+                  <span class="cta__info-icon"><svg aria-hidden="true"><use href="#i-pin"/></svg></span>
+                  <span><strong>Montalvânia, MG</strong><small>Atendemos toda a região</small></span>
+                </li>
+              </ul>
+            </div>
           </div>
-          <figcaption class="cta__place">
-            <span class="cta__place-pin"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg></span>
-            <span class="cta__place-text">
-              <strong>Av. Confúcio, 988 – B</strong>
-              Centro · Montalvânia, MG
-            </span>
-            <a class="cta__place-link" href="https://maps.app.goo.gl/aD6CbAhA3jwAcUhX8" target="_blank" rel="noopener" aria-label="Abrir a localização da clínica no Google Maps (abre em nova aba)">Abrir no Maps</a>
-          </figcaption>
-        </figure>
+
+          <figure class="cta__map" data-reveal="scale" style="--delay:200ms">
+            <div class="cta__frame">
+              <iframe src="https://maps.google.com/maps?q=Cl%C3%ADnica+Vigore+-+Corpo+e+Mente,+Montalv%C3%A2nia+-+MG&amp;ll=-14.4214173,-44.3665142&amp;z=17&amp;hl=pt-BR&amp;output=embed" title="Mapa com a localização da Clínica Vigore – Corpo e Mente, em Montalvânia (MG)" width="600" height="440" loading="lazy" referrerpolicy="no-referrer-when-downgrade" allowfullscreen></iframe>
+            </div>
+            <figcaption class="cta__place">
+              <span class="cta__place-pin"><svg aria-hidden="true"><use href="#i-pin"/></svg></span>
+              <span class="cta__place-text">
+                <strong>Av. Confúcio, 988 – B</strong>
+                Centro · Montalvânia, MG
+              </span>
+              <a class="cta__place-link" href="https://maps.app.goo.gl/aD6CbAhA3jwAcUhX8" target="_blank" rel="noopener" data-cta="map" aria-label="Abrir a localização da clínica no Google Maps (abre em nova aba)">Abrir no Maps <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
+            </figcaption>
+          </figure>
+        </div>
       </div>
     </section>
   </main>
 
   <!-- ===================== FOOTER ===================== -->
-  <footer class="footer has-wave">
-    <svg class="wave-line" viewBox="0 0 1440 120" preserveAspectRatio="none" aria-hidden="true" focusable="false" data-reveal><path d="M0 108C260 108 420 40 720 40S1180 108 1440 56"/></svg>
-    <div class="container footer__grid">
-      <div class="footer__brand">
-        <a class="brand brand--footer" href="#inicio" aria-label="Vigore – Corpo e Mente, voltar ao início">
-          <img src="Assets/img/logo-192.png" alt="" width="192" height="192" class="brand__logo" loading="lazy">
-          <span class="brand__text">
-            <span class="brand__name">Vigore</span>
-            <span class="brand__tag">Corpo e Mente</span>
-          </span>
-        </a>
-        <p class="footer__desc">Clínica multidisciplinar em Montalvânia (MG). Nove especialidades e um único propósito: cuidar de você por inteiro.</p>
-        <ul class="social" aria-label="Redes sociais">
-          <li><a class="social__link" href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" aria-label="Instagram da Vigore (abre em nova aba)"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
-          <li><a class="social__link" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener" aria-label="WhatsApp da Vigore (abre em nova aba)"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg></a></li>
-          <li><a class="social__link" href="https://maps.app.goo.gl/VJLw5xDFwneYc9Fa9" target="_blank" rel="noopener" aria-label="Localização da Vigore no Google Maps (abre em nova aba)"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg></a></li>
-        </ul>
+  <footer class="footer" data-dark>
+    <div class="container">
+      <div class="footer__grid">
+        <div class="footer__brand">
+          <a class="brand brand--light" href="#inicio" aria-label="Vigore – Corpo e Mente, voltar ao início">
+            <img class="brand__mark" src="Assets/img/logo-96.png" alt="" width="96" height="96" loading="lazy">
+            <span class="brand__text">
+              <span class="brand__name">Vigore</span>
+              <span class="brand__meta">Corpo e Mente</span>
+            </span>
+          </a>
+          <p class="footer__desc">Clínica multidisciplinar em Montalvânia (MG). Nove especialidades e um único propósito: cuidar de você por inteiro.</p>
+          <ul class="social" aria-label="Redes sociais">
+            <li><a href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" data-cta="footer-instagram" aria-label="Instagram da Vigore (abre em nova aba)"><svg aria-hidden="true"><use href="#i-instagram"/></svg></a></li>
+            <li><a href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener" data-cta="footer-social" aria-label="WhatsApp da Vigore (abre em nova aba)"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></a></li>
+            <li><a href="https://maps.app.goo.gl/VJLw5xDFwneYc9Fa9" target="_blank" rel="noopener" aria-label="Localização da Vigore no Google Maps (abre em nova aba)"><svg aria-hidden="true"><use href="#i-pin"/></svg></a></li>
+          </ul>
+        </div>
+
+        <nav class="footer__col" aria-label="Links úteis">
+          <h2 class="footer__title">Links úteis</h2>
+          <ul>
+            <li><a href="#sobre">Sobre a Vigore</a></li>
+            <li><a href="#especialidades">Especialidades</a></li>
+            <li><a href="#teleconsulta">Teleconsulta</a></li>
+            <li><a href="#como-funciona">Como funciona</a></li>
+            <li><a href="#duvidas">Dúvidas frequentes</a></li>
+          </ul>
+        </nav>
+
+        <div class="footer__col">
+          <h2 class="footer__title">Especialidades</h2>
+          <ul class="footer__info">
+            <li>Psicologia</li><li>Psicopedagogia</li><li>Psiquiatria</li><li>Dermatologia e Estética</li><li>Fonoaudiologia</li><li>Nutrição</li><li>Pediatria Geral</li><li>Ortopedia</li><li>Ginecologia e Obstetrícia</li>
+          </ul>
+        </div>
+
+        <address class="footer__col">
+          <h2 class="footer__title">Contato</h2>
+          <ul>
+            <li><a href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener" data-cta="footer"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg>(38) 99866-8730</a></li>
+            <!-- TODO: substituir pelo e-mail oficial da clínica -->
+            <li><a href="mailto:contato@clinicavigore.com.br"><svg aria-hidden="true"><use href="#i-mail"/></svg>contato@clinicavigore.com.br</a></li>
+            <li><a href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener" data-cta="footer-instagram-link"><svg aria-hidden="true"><use href="#i-instagram"/></svg>@clinicavigore_</a></li>
+            <li><a href="https://maps.app.goo.gl/VJLw5xDFwneYc9Fa9" target="_blank" rel="noopener"><svg aria-hidden="true"><use href="#i-pin"/></svg>Montalvânia, MG · Ver no mapa</a></li>
+          </ul>
+        </address>
       </div>
 
-      <nav class="footer__col" aria-label="Links úteis">
-        <h3 class="footer__title">Links úteis</h3>
-        <ul>
-          <li><a href="#sobre">Sobre a Vigore</a></li>
-          <li><a href="#especialidades">Especialidades</a></li>
-          <li><a href="#teleconsulta">Teleconsulta</a></li>
-          <li><a href="#como-funciona">Como funciona</a></li>
-          <li><a href="#duvidas">Dúvidas frequentes</a></li>
-        </ul>
-      </nav>
-
-      <div class="footer__col">
-        <h3 class="footer__title">Especialidades</h3>
-        <ul class="footer__tags">
-          <li>Psicologia</li><li>Psicopedagogia</li><li>Psiquiatria</li><li>Dermatologia e Estética</li><li>Fonoaudiologia</li><li>Nutrição</li><li>Pediatria Geral</li><li>Ortopedia</li><li>Ginecologia e Obstetrícia</li>
-        </ul>
+      <div class="footer__bottom">
+        <p>© <span data-year>2026</span> Vigore – Corpo e Mente. Todos os direitos reservados.</p>
+        <a class="footer__top" href="#inicio">Voltar ao topo <svg aria-hidden="true"><use href="#i-arrow"/></svg></a>
       </div>
-
-      <address class="footer__col footer__contact">
-        <h3 class="footer__title">Contato</h3>
-        <ul>
-          <li><a href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-whatsapp"/></svg> (38) 99866-8730</a></li>
-          <!-- TODO: substituir pelo e-mail oficial da clínica -->
-          <li><a href="mailto:contato@clinicavigore.com.br"><svg class="icon" aria-hidden="true"><use href="#i-mail"/></svg> contato@clinicavigore.com.br</a></li>
-          <li><a href="https://www.instagram.com/clinicavigore_/" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-instagram"/></svg> @clinicavigore_</a></li>
-          <li><a href="https://maps.app.goo.gl/VJLw5xDFwneYc9Fa9" target="_blank" rel="noopener"><svg class="icon" aria-hidden="true"><use href="#i-pin"/></svg> Montalvânia, MG · Ver no mapa</a></li>
-        </ul>
-      </address>
-    </div>
-
-    <div class="container footer__bottom">
-      <p>&copy; <span id="year">2026</span> Vigore – Corpo e Mente. Todos os direitos reservados.</p>
-      <a class="footer__top" href="#inicio">Voltar ao topo <svg class="icon" aria-hidden="true"><use href="#i-arrow"/></svg></a>
     </div>
   </footer>
 
-  <!-- ===================== WHATSAPP FLUTUANTE ===================== -->
-  <a class="wa-float" href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta." target="_blank" rel="noopener" aria-label="Conversar com a Vigore no WhatsApp (abre em nova aba)">
+  <!-- ===== WhatsApp flutuante ===== -->
+  <a class="wa-float"
+     href="https://api.whatsapp.com/send/?phone=5538998668730&amp;text=Ol%C3%A1!%20Vim%20pelo%20site%20da%20Vigore%20e%20gostaria%20de%20agendar%20uma%20consulta."
+     target="_blank" rel="noopener" data-cta="float"
+     aria-label="Conversar com a Vigore no WhatsApp (abre em nova aba)">
+    <svg class="wa-float__icon" aria-hidden="true"><use href="#i-whatsapp"/></svg>
     <span class="wa-float__label" aria-hidden="true">Agende pelo WhatsApp</span>
-    <span class="wa-float__btn"><svg aria-hidden="true"><use href="#i-whatsapp"/></svg></span>
   </a>
-
-  <script src="js/main.js" defer></script>
 </body>
 </html>

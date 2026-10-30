@@ -1,246 +1,328 @@
 /* ==========================================================================
-   Vigore – Corpo e Mente | main.js
-   Preloader · animações de scroll · header · menu mobile · cursor · extras
+   Vigore – Corpo e Mente · main.js (estilo Vitória)
+   01. Preloader (logo da árvore crescendo + porcentagem + barra)
+   02. Header com sombra ao rolar
+   03. Menu mobile
+   04. Link ativo na navegação
+   05. Animações de entrada (Intersection Observer)
+   06. Cursor customizado
+   07. Rastreamento de cliques (WhatsApp / Instagram)
+   08. Ano no rodapé
+   09. FAQ: acordeão com abertura e fechamento animados
    ========================================================================== */
+
 (() => {
   'use strict';
 
+  window.__vgReady = true;
+
   const root = document.documentElement;
-  const $ = (sel, ctx = document) => ctx.querySelector(sel);
-  const $$ = (sel, ctx = document) => [...ctx.querySelectorAll(sel)];
-  const reducedMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
-  const clamp = (v, min, max) => Math.min(max, Math.max(min, v));
-  const easeInOut = (t) => (t < .5 ? 4 * t * t * t : 1 - Math.pow(-2 * t + 2, 3) / 2);
+  const reduceMotion = window.matchMedia('(prefers-reduced-motion: reduce)').matches;
+  const clamp = (v, min = 0, max = 1) => Math.min(Math.max(v, min), max);
 
-  /* ------------------------------------------------------------------------
-     1. PRELOADER
-     O logo é "desenhado" (stroke-dashoffset 1 → 0) em sincronia com a
-     porcentagem. A contagem só passa de 90% depois do evento `load`.
-     ------------------------------------------------------------------------ */
-  function initPreloader() {
-    return new Promise((resolve) => {
-      const el = $('#preloader');
-      if (!el) { root.classList.remove('is-loading'); resolve(); return; }
+  /* 01. Preloader ======================================================== */
+  function initPreloader(onDone) {
+    const preloader = document.getElementById('preloader');
+    if (!preloader) { root.classList.remove('is-loading'); onDone(); return; }
 
-      const countEl = $('#preloaderCount');
-      const barEl = $('#preloaderBar');
-      const strokes = $$('.draw', el);
-      const total = strokes.length;
-      const MIN_DURATION = reducedMotion ? 300 : 2600;
-      const MAX_WAIT = 8000; // nunca prende o usuário por mais que isso
-
-      let loaded = document.readyState === 'complete';
-      let shown = 0;
-      const start = performance.now();
-
-      if (!loaded) window.addEventListener('load', () => { loaded = true; }, { once: true });
-      setTimeout(() => { loaded = true; }, MAX_WAIT);
-
-      const render = (p) => {
-        const progress = p / 100;
-        countEl.textContent = `${Math.round(p)}%`;
-        barEl.style.transform = `scaleX(${progress})`;
-        // cada traço tem sua janela de desenho, criando o efeito progressivo
-        strokes.forEach((stroke, i) => {
-          const from = (i / total) * .6;
-          const local = clamp((progress - from) / .4, 0, 1);
-          stroke.style.strokeDashoffset = 1 - local;
-        });
-      };
-
-      const finish = () => {
-        el.classList.add('is-filled');
-        setTimeout(() => {
-          el.classList.add('is-done');
-          el.setAttribute('aria-hidden', 'true');
-          root.classList.remove('is-loading');
-          resolve();
-          setTimeout(() => el.remove(), 1000);
-        }, reducedMotion ? 0 : 750);
-      };
-
-      const tick = (now) => {
-        const t = clamp((now - start) / MIN_DURATION, 0, 1);
-        let target = easeInOut(t) * 100;
-        if (!loaded) target = Math.min(target, 90 + (t >= 1 ? Math.min(9, (now - start - MIN_DURATION) / 400) : 0));
-
-        shown += (target - shown) * .14;
-        if (Math.abs(target - shown) < .25) shown = target;
-        render(shown);
-
-        if (shown >= 100) finish();
-        else requestAnimationFrame(tick);
-      };
-
-      requestAnimationFrame(tick);
+    // Cada traço tem sua janela de desenho (data-draw="início,fim", de 0 a 1)
+    const paths = [...preloader.querySelectorAll('[data-draw]')].map((el) => {
+      const [start, end] = el.dataset.draw.split(',').map(Number);
+      return { el, start, end };
     });
-  }
+    const percentEl = preloader.querySelector('[data-percent]');
+    const bar = preloader.querySelector('[data-bar]');
 
-  /* ------------------------------------------------------------------------
-     2. ANIMAÇÕES DE ENTRADA (Intersection Observer: fade + translate)
-     ------------------------------------------------------------------------ */
-  function initReveal() {
-    const items = $$('[data-reveal]');
-    if (reducedMotion || !('IntersectionObserver' in window)) {
-      items.forEach((item) => item.classList.add('is-visible'));
-      return;
-    }
-    const observer = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        entry.target.classList.add('is-visible');
-        observer.unobserve(entry.target);
+    // Na segunda visita da sessão, o preloader é mais rápido
+    let visited = false;
+    try { visited = sessionStorage.getItem('vg-visited') === '1'; sessionStorage.setItem('vg-visited', '1'); } catch (e) { /* storage bloqueado */ }
+
+    const minDuration = reduceMotion ? 300 : visited ? 900 : 2200;
+    const maxWait = 8000; // nunca prende o usuário se algum recurso travar
+    const start = performance.now();
+    let pageLoaded = document.readyState === 'complete';
+    let shown = 0;
+    let lastPercent = -1;
+
+    window.addEventListener('load', () => { pageLoaded = true; }, { once: true });
+
+    const cssReady = () => getComputedStyle(root).getPropertyValue('--css-ready').trim() === '1';
+
+    function render(p) {
+      const percent = Math.round(p * 100);
+      if (percent !== lastPercent) {
+        percentEl.textContent = percent + '%';
+        lastPercent = percent;
+      }
+      bar.style.transform = `scaleX(${p})`;
+      preloader.style.setProperty('--p', p.toFixed(3));
+      paths.forEach(({ el, start: s, end: e }) => {
+        el.style.strokeDashoffset = 1 - clamp((p - s) / (e - s));
       });
-    }, { threshold: .15, rootMargin: '0px 0px -8% 0px' });
+    }
 
-    items.forEach((item) => observer.observe(item));
+    function finish() {
+      render(1);
+      preloader.classList.add('is-done');
+      preloader.setAttribute('aria-busy', 'false');
+      root.classList.remove('is-loading');
+      root.classList.add('is-loaded');
+      preloader.addEventListener('transitionend', () => preloader.remove(), { once: true });
+      setTimeout(() => preloader.remove(), 1200);
+      onDone();
+    }
+
+    function frame(now) {
+      const elapsed = now - start;
+      const timeProgress = clamp(elapsed / minDuration);
+      const ready = (pageLoaded && cssReady()) || elapsed > maxWait;
+      // Enquanto a página não termina de carregar, segura em 90%
+      const target = ready ? timeProgress : Math.min(timeProgress, 0.9);
+
+      shown += (target - shown) * (reduceMotion ? 1 : 0.14);
+      if (ready && timeProgress >= 1 && 1 - shown < 0.005) shown = 1;
+
+      render(shown);
+      if (shown < 1) requestAnimationFrame(frame);
+      else setTimeout(finish, reduceMotion ? 0 : 250);
+    }
+
+    preloader.setAttribute('aria-busy', 'true');
+    requestAnimationFrame(frame);
   }
 
-  /* ------------------------------------------------------------------------
-     3. HEADER (sticky com blur ao rolar) + link ativo
-     ------------------------------------------------------------------------ */
+  /* 02. Header: sombra mais marcada ao rolar (o blur é permanente) ======= */
   function initHeader() {
-    const header = $('.site-header');
+    const header = document.querySelector('.header');
     if (!header) return;
-
     let ticking = false;
     const update = () => {
-      header.classList.toggle('is-scrolled', window.scrollY > 24);
+      header.classList.toggle('is-scrolled', window.scrollY > 12);
       ticking = false;
     };
     window.addEventListener('scroll', () => {
       if (!ticking) { requestAnimationFrame(update); ticking = true; }
     }, { passive: true });
     update();
-
-    // destaca o link da seção visível
-    const links = $$('.nav__link');
-    const sections = links.map((link) => $(link.getAttribute('href'))).filter(Boolean);
-    if (!('IntersectionObserver' in window)) return;
-
-    const spy = new IntersectionObserver((entries) => {
-      entries.forEach((entry) => {
-        if (!entry.isIntersecting) return;
-        links.forEach((link) => {
-          const active = link.getAttribute('href') === `#${entry.target.id}`;
-          link.classList.toggle('is-active', active);
-          if (active) link.setAttribute('aria-current', 'location');
-          else link.removeAttribute('aria-current');
-        });
-      });
-    }, { rootMargin: '-45% 0px -50% 0px' });
-
-    sections.forEach((section) => spy.observe(section));
   }
 
-  /* ------------------------------------------------------------------------
-     4. MENU MOBILE (hambúrguer com revelação circular)
-     ------------------------------------------------------------------------ */
+  /* 03. Menu mobile ====================================================== */
   function initMenu() {
-    const button = $('.hamburger');
-    const nav = $('#menu');
-    if (!button || !nav) return;
+    const toggle = document.querySelector('.nav-toggle');
+    const menu = document.getElementById('menu');
+    if (!toggle || !menu) return;
 
-    const desktop = window.matchMedia('(min-width: 1200px)');
-    const isOpen = () => nav.classList.contains('is-open');
+    // Mesmo breakpoint do CSS em que o menu vira horizontal
+    const desktop = window.matchMedia('(min-width: 1024px)');
+    const focusables = () => [toggle, ...menu.querySelectorAll('a[href]')];
 
-    const setMenu = (open, { restoreFocus = true } = {}) => {
-      nav.classList.toggle('is-open', open);
-      document.body.classList.toggle('menu-open', open);
-      button.setAttribute('aria-expanded', String(open));
-      button.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+    function setOpen(open) {
+      root.classList.toggle('menu-open', open);
+      toggle.setAttribute('aria-expanded', String(open));
+      toggle.setAttribute('aria-label', open ? 'Fechar menu' : 'Abrir menu');
+      document.body.style.overflow = open ? 'hidden' : '';
       if (open) {
-        setTimeout(() => { const first = $('.nav__link', nav); if (first) first.focus({ preventScroll: true }); }, 350);
-      } else if (restoreFocus) {
-        button.focus({ preventScroll: true });
+        const firstLink = menu.querySelector('a[href]');
+        setTimeout(() => firstLink && firstLink.focus({ preventScroll: true }), 350);
       }
-    };
+    }
+    const isOpen = () => root.classList.contains('menu-open');
 
-    button.addEventListener('click', () => setMenu(!isOpen()));
+    toggle.addEventListener('click', () => setOpen(!isOpen()));
 
-    nav.addEventListener('click', (e) => {
-      if (e.target.closest('a') && isOpen()) setMenu(false, { restoreFocus: false });
+    menu.addEventListener('click', (e) => {
+      if (e.target.closest('a') && isOpen()) setOpen(false);
     });
 
     document.addEventListener('keydown', (e) => {
       if (!isOpen()) return;
-      if (e.key === 'Escape') { setMenu(false); return; }
-      if (e.key !== 'Tab') return;
-
-      // mantém o foco dentro do menu aberto
-      const focusables = [button, ...$$('a', nav)];
-      const first = focusables[0];
-      const last = focusables[focusables.length - 1];
-      if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
-      else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      if (e.key === 'Escape') {
+        setOpen(false);
+        toggle.focus();
+        return;
+      }
+      // Mantém o foco dentro do menu aberto
+      if (e.key === 'Tab') {
+        const items = focusables();
+        const first = items[0];
+        const last = items[items.length - 1];
+        if (e.shiftKey && document.activeElement === first) { e.preventDefault(); last.focus(); }
+        else if (!e.shiftKey && document.activeElement === last) { e.preventDefault(); first.focus(); }
+      }
     });
 
-    desktop.addEventListener('change', (e) => { if (e.matches && isOpen()) setMenu(false, { restoreFocus: false }); });
+    desktop.addEventListener('change', (e) => { if (e.matches && isOpen()) setOpen(false); });
   }
 
-  /* ------------------------------------------------------------------------
-     5. CURSOR CUSTOMIZADO (apenas mouse/trackpad, sem movimento reduzido)
-     ------------------------------------------------------------------------ */
-  function initCursor() {
-    const cursor = $('.cursor');
-    if (!cursor || reducedMotion || !window.matchMedia('(hover: hover) and (pointer: fine)').matches) return;
+  /* 04. Link ativo na navegação ========================================== */
+  function initActiveLink() {
+    const links = [...document.querySelectorAll('.menu__link[href^="#"]')];
+    // O hero entra na lista para limpar o destaque quando o usuário volta ao topo
+    const sections = [document.getElementById('inicio'), ...links
+      .map((link) => document.querySelector(link.getAttribute('href')))]
+      .filter(Boolean);
+    if (!sections.length || !('IntersectionObserver' in window)) return;
 
-    const dot = $('.cursor__dot', cursor);
-    const ring = $('.cursor__ring', cursor);
-    const interactive = 'a, button, summary, [role="button"]';
-    let mx = -100, my = -100, rx = -100, ry = -100;
+    // "Dúvidas" fica dentro de "Como funciona": vence a última seção visível na ordem do documento
+    const visible = new Set();
+    const observer = new IntersectionObserver((entries) => {
+      entries.forEach((entry) => {
+        if (entry.isIntersecting) visible.add(entry.target);
+        else visible.delete(entry.target);
+      });
+      const current = sections.filter((s) => visible.has(s)).pop();
+      if (!current) return;
+      links.forEach((link) => {
+        const active = link.getAttribute('href') === '#' + current.id;
+        link.classList.toggle('is-active', active);
+        if (active) link.setAttribute('aria-current', 'true');
+        else link.removeAttribute('aria-current');
+      });
+    }, { rootMargin: '-45% 0px -50% 0px' });
+
+    sections.forEach((section) => observer.observe(section));
+  }
+
+  /* 05. Animações de entrada ============================================= */
+  function initReveal() {
+    const items = document.querySelectorAll('[data-reveal]');
+    if (reduceMotion || !('IntersectionObserver' in window)) {
+      items.forEach((el) => el.classList.add('is-visible'));
+      return;
+    }
+    const observer = new IntersectionObserver((entries, obs) => {
+      entries.forEach((entry) => {
+        if (!entry.isIntersecting) return;
+        entry.target.classList.add('is-visible');
+        obs.unobserve(entry.target);
+      });
+    }, { threshold: 0.15, rootMargin: '0px 0px -40px 0px' });
+
+    items.forEach((el) => observer.observe(el));
+  }
+
+  /* 06. Cursor customizado =============================================== */
+  function initCursor() {
+    const finePointer = window.matchMedia('(hover: hover) and (pointer: fine)').matches;
+    const cursor = document.querySelector('.cursor');
+    if (!cursor || !finePointer || reduceMotion) return;
+
+    const dot = cursor.querySelector('.cursor__dot');
+    const ring = cursor.querySelector('.cursor__ring');
+    const interactive = 'a, button, summary, [role="button"], label';
+    const mouse = { x: -100, y: -100 };
+    const ringPos = { x: -100, y: -100 };
 
     root.classList.add('has-cursor');
+    cursor.classList.add('is-hidden');
 
     window.addEventListener('mousemove', (e) => {
-      mx = e.clientX; my = e.clientY;
-      dot.style.transform = `translate3d(${mx}px, ${my}px, 0)`;
-      cursor.classList.add('is-active');
+      mouse.x = e.clientX;
+      mouse.y = e.clientY;
+      dot.style.translate = `${mouse.x}px ${mouse.y}px`;
+      cursor.classList.remove('is-hidden');
+
+      const target = e.target instanceof Element ? e.target : null;
+      cursor.classList.toggle('is-hover', !!(target && target.closest(interactive)));
+      cursor.classList.toggle('is-dark', !!(target && target.closest('[data-dark], .menu-open .menu')));
     }, { passive: true });
 
-    document.addEventListener('mouseover', (e) => {
-      cursor.classList.toggle('is-hover', !!e.target.closest(interactive));
+    // O mapa (iframe) não repassa o mousemove: esconde o cursor enquanto está sobre ele
+    document.querySelectorAll('iframe').forEach((frame) => {
+      frame.addEventListener('mouseenter', () => cursor.classList.add('is-hidden'));
     });
-    document.addEventListener('mousedown', () => cursor.classList.add('is-down'));
-    document.addEventListener('mouseup', () => cursor.classList.remove('is-down'));
-    document.documentElement.addEventListener('mouseleave', () => cursor.classList.remove('is-active'));
 
-    const follow = () => {
-      rx += (mx - rx) * .18;
-      ry += (my - ry) * .18;
-      ring.style.transform = `translate3d(${rx}px, ${ry}px, 0)`;
+    document.addEventListener('mouseleave', () => cursor.classList.add('is-hidden'));
+    window.addEventListener('mousedown', () => cursor.classList.add('is-down'));
+    window.addEventListener('mouseup', () => cursor.classList.remove('is-down'));
+
+    (function follow() {
+      ringPos.x += (mouse.x - ringPos.x) * 0.18;
+      ringPos.y += (mouse.y - ringPos.y) * 0.18;
+      ring.style.translate = `${ringPos.x}px ${ringPos.y}px`;
       requestAnimationFrame(follow);
-    };
-    requestAnimationFrame(follow);
+    })();
   }
 
-  /* ------------------------------------------------------------------------
-     6. EXTRAS: rótulo do WhatsApp flutuante + ano no rodapé
-     ------------------------------------------------------------------------ */
-  function initWhatsAppHint() {
-    const fab = $('.wa-float');
-    if (!fab || !window.matchMedia('(min-width: 768px)').matches) return;
-    setTimeout(() => {
-      fab.classList.add('show-label');
-      setTimeout(() => fab.classList.remove('show-label'), 4500);
-    }, 3500);
+  /* 07. Rastreamento de cliques ========================================== */
+  function initTracking() {
+    // Eventos para Google Tag Manager / GA4 / Meta Pixel, se instalados
+    document.addEventListener('click', (e) => {
+      const link = e.target.closest('[data-cta]');
+      if (!link) return;
+      const channel = /wa\.me|whatsapp/.test(link.href) ? 'whatsapp' : /instagram/.test(link.href) ? 'instagram' : 'outro';
+      const detail = { event: `${channel}_click`, cta_location: link.dataset.cta };
+
+      window.dataLayer = window.dataLayer || [];
+      window.dataLayer.push(detail);
+      if (typeof window.gtag === 'function') window.gtag('event', detail.event, { cta_location: detail.cta_location });
+      if (typeof window.fbq === 'function' && channel === 'whatsapp') window.fbq('track', 'Contact', { cta_location: detail.cta_location });
+    });
   }
 
+  /* 08. Ano no rodapé ==================================================== */
   function initYear() {
-    const year = $('#year');
+    const year = document.querySelector('[data-year]');
     if (year) year.textContent = new Date().getFullYear();
   }
 
-  /* ------------------------------------------------------------------------
-     INIT
-     ------------------------------------------------------------------------ */
+  /* 09. FAQ: acordeão animado ============================================ */
+  function initFaq() {
+    const items = [...document.querySelectorAll('.faq__item')];
+    // índice para a entrada em cascata (transition-delay no CSS)
+    items.forEach((item, i) => item.style.setProperty('--i', i));
+    if (reduceMotion || !items.length || !('animate' in Element.prototype)) return;
+
+    const timing = { duration: 520, easing: 'cubic-bezier(.22, 1, .36, 1)' };
+
+    function open(item) {
+      const answer = item.querySelector('.faq__answer');
+      item.open = true;
+      const height = answer.scrollHeight;
+      answer.animate(
+        [{ height: '0px', opacity: 0 }, { height: `${height}px`, opacity: 1 }],
+        timing
+      );
+    }
+
+    function close(item) {
+      const answer = item.querySelector('.faq__answer');
+      item.classList.add('is-closing');
+      const anim = answer.animate(
+        [{ height: `${answer.offsetHeight}px`, opacity: 1 }, { height: '0px', opacity: 0 }],
+        { ...timing, duration: 380 }
+      );
+      anim.onfinish = () => {
+        item.open = false;
+        item.classList.remove('is-closing');
+      };
+    }
+
+    items.forEach((item) => {
+      // O atributo name (acordeão nativo) fecharia os outros sem animação;
+      // com JS, quem controla a exclusividade é o código abaixo
+      item.removeAttribute('name');
+      item.querySelector('summary').addEventListener('click', (e) => {
+        e.preventDefault();
+        if (item.classList.contains('is-closing')) return;
+        if (item.open) {
+          close(item);
+        } else {
+          items.filter((other) => other !== item && other.open).forEach(close);
+          open(item);
+        }
+      });
+    });
+  }
+
+  /* Início =============================================================== */
   initHeader();
   initMenu();
+  initActiveLink();
   initCursor();
+  initTracking();
   initYear();
-
-  initPreloader().then(() => {
-    initReveal();
-    initWhatsAppHint();
-  });
+  initFaq();
+  // As animações de entrada começam quando o preloader sai de cena
+  initPreloader(initReveal);
 })();
